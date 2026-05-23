@@ -8,13 +8,13 @@
         class="card-title"
       />
 
-      <Loader :overlay="loader" />
+      <Loader :overlay="loading" />
 
       <v-row>
         <v-col cols="12" md="6">
           <v-combobox
             v-model="team"
-            :items="times"
+            :items="teams"
             item-title="text"
             item-value="value"
             label="Selecione o time"
@@ -41,7 +41,7 @@
           color="#1E5AA8"
           variant="outlined"
           elevation="4"
-          :disabled="!invalid"
+          :disabled="!canSubmit"
         >
           Enviar
         </v-btn>
@@ -50,75 +50,56 @@
   </v-form>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from "vue";
+import { useApi } from "@/composables/useApi";
 import CardTitlePage from "./CardTitlePage.vue";
 import Loader from "./Loader.vue";
-import axios from "axios";
 
-export default {
-  components: { CardTitlePage, Loader },
+const { apiRequest } = useApi();
+const form = ref(null);
 
-  data() {
-    return {
-      times: [],
-      loader: false,
-      team: null,
-      myFileObject: null,
-      serverDomain: process.env.VUE_APP_SERVER_DOMAIN,
-    };
-  },
+const teams = ref([]);
+const loading = ref(false);
+const team = ref(null);
+const myFileObject = ref(null);
 
-  computed: {
-    invalid() {
-      return this.team && this.myFileObject;
-    },
-  },
+const canSubmit = computed(() => team.value && myFileObject.value);
 
-  methods: {
-    onFileChange(e) {
-      this.myFileObject = e;
-    },
+const onFileChange = (e) => {
+  myFileObject.value = e;
+};
 
-    async addPhoto() {
-      if (!this.team || !this.myFileObject) return;
+onMounted(async () => {
+  loading.value = true;
+  try {
+    const result = await apiRequest("teams", { method: "GET" });
+    teams.value = result.map((t) => ({
+      text: `${t.value} - ${t.text}`,
+      value: t.value,
+    }));
+  } finally {
+    loading.value = false;
+  }
+});
 
-      this.loader = true;
-      try {
-        const formData = new FormData();
-        formData.append("file", this.myFileObject);
-        formData.append(
-          "bodyReq",
-          JSON.stringify({ value: this.team.value })
-        );
+const addPhoto = async () => {
+  if (!canSubmit.value) return;
 
-        await axios.post(`${this.serverDomain}/teams/picture`, formData);
+  loading.value = true;
+  try {
+    const formData = new FormData();
+    formData.append("file", myFileObject.value);
+    formData.append("bodyReq", JSON.stringify({ value: team.value.value }));
 
-        this.$refs.form.reset();
-        this.team = null;
-        this.myFileObject = null;
+    await apiRequest("teams/picture", { method: "POST", body: formData });
 
-        this.$emit("notify", { type: "success", message: "Imagem enviada com sucesso!" });
-      } catch (error) {
-        console.error(error);
-        this.$emit("notify", { type: "error", message: "Erro ao enviar imagem." });
-      } finally {
-        this.loader = false;
-      }
-    },
-  },
-
-  created() {
-    this.loader = true;
-    fetch(`${this.serverDomain}/teams`, { credentials: "include" })
-      .then((res) => res.json())
-      .then((json) => {
-        this.times = json.map((t) => ({
-          text: `${t.value} - ${t.text}`,
-          value: t.value,
-        }));
-      })
-      .finally(() => (this.loader = false));
-  },
+    form.value?.reset();
+    team.value = null;
+    myFileObject.value = null;
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 

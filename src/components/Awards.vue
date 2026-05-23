@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <!-- Loader -->
-    <v-skeleton-loader v-if="loader" class="mx-auto mt-4" type="table" elevation="1" :loading="loader">
+    <!-- Loading skeleton -->
+    <v-skeleton-loader v-if="loading" class="mx-auto mt-4" type="table" elevation="1">
       <template #default>
         <v-card flat>
           <v-table>
@@ -24,9 +24,13 @@
       </template>
     </v-skeleton-loader>
 
-    <!-- Grid de prêmios -->
+    <!-- Awards grid -->
     <v-row dense v-else>
-      <v-col v-for="award in groupedAwards" :key="award.name" cols="12" sm="6" md="4" lg="3">
+      <v-col
+        v-for="award in groupedAwards"
+        :key="award.name"
+        cols="12" sm="6" md="4" lg="3"
+      >
         <v-hover v-slot="{ isHover }">
           <v-card :elevation="isHover ? 12 : 4" class="award-card">
             <v-card-title class="card-title">
@@ -34,13 +38,20 @@
               <v-icon icon="mdi-information-outline" size="small" @click="displayAward(award)" />
             </v-card-title>
 
-            <draggable v-if="isFTC" v-model="award.teams" item-key="Teams_idTeams" tag="v-list" handle=".drag-handle"
-              @end="onDragEnd($event, award)">
+            <!-- FTC: draggable order -->
+            <draggable
+              v-if="isFTC"
+              v-model="award.teams"
+              item-key="Teams_idTeams"
+              tag="v-list"
+              handle=".drag-handle"
+              @end="onDragEnd($event, award)"
+            >
               <template #item="{ element: team }">
-                <v-list-item @click="openDialog(team, award)" :class="[
-                  team.awarded ? 'winner' : team.nominated ? 'tile' : 'alreadyAwarded',
-                  positionClass(team),
-                ]">
+                <v-list-item
+                  @click="openDialog(team, award)"
+                  :class="[team.awarded ? 'winner' : team.nominated ? 'tile' : 'alreadyAwarded', positionClass(team)]"
+                >
                   <v-list-item-title>
                     <v-icon icon="mdi-drag" size="small" class="mr-2 drag-handle" />
                     <b>{{ team.teamName }} - {{ team.teamNumber }}</b>
@@ -49,12 +60,14 @@
               </template>
             </draggable>
 
+            <!-- FRC: static list -->
             <v-list v-else>
-              <v-list-item v-for="team in award.teams" :key="team.Teams_idTeams" @click="openDialog(team, award)"
-                :class="[
-                  team.nominated ? 'tile' : !team.awarded ? 'alreadyAwarded' : 'winner',
-                  positionClass(team),
-                ]">
+              <v-list-item
+                v-for="team in award.teams"
+                :key="team.Teams_idTeams"
+                @click="openDialog(team, award)"
+                :class="[team.nominated ? 'tile' : !team.awarded ? 'alreadyAwarded' : 'winner', positionClass(team)]"
+              >
                 <v-list-item-title>
                   <b>{{ team.teamName }} - {{ team.teamNumber }}</b>
                 </v-list-item-title>
@@ -65,37 +78,45 @@
       </v-col>
     </v-row>
 
-    <!-- Dialog -->
+    <!-- Team detail dialog -->
     <v-dialog v-model="dialog" max-width="400px">
       <v-card v-if="currentTeam">
-        <v-card-title class="headline">
-          {{ currentAward?.name }}
-        </v-card-title>
-
-        <v-card-subtitle class="headline">
-          {{ `${currentTeam.teamName} - ${currentTeam.teamNumber}` }}
-        </v-card-subtitle>
+        <v-card-title class="headline">{{ currentAward?.name }}</v-card-title>
+        <v-card-subtitle>{{ `${currentTeam.teamName} - ${currentTeam.teamNumber}` }}</v-card-subtitle>
 
         <v-card-text>
           <b>Indicado por:</b> {{ currentTeam.judge }}<br />
           <b>Descrição:</b> {{ currentTeam.motive }}
         </v-card-text>
 
-        <v-img v-if="currentTeam.imagePath" :src="apiBase + currentTeam.imagePath" max-height="220" contain
-          class="mb-3" />
-
+        <v-img
+          v-if="currentTeam.imagePath"
+          :src="apiBase + currentTeam.imagePath"
+          max-height="220"
+          contain
+          class="mb-3"
+        />
 
         <v-card-actions class="flex-column">
-          <v-btn v-if="!isFTC" color="#F9A825" text @click="toggleNomination(currentTeam, currentAward.name)">
+          <v-btn
+            v-if="!isFTC"
+            color="#F9A825"
+            text
+            @click="toggleNomination(currentTeam, currentAward.name)"
+          >
             {{ currentTeam.nominated ? "Retirar de consideração" : "Considerar" }}
           </v-btn>
 
-          <v-btn v-if="isFTC" color="#F9A825" text @click="toggleAward(currentTeam, currentAward.name)">
+          <v-btn
+            v-if="isFTC"
+            color="#F9A825"
+            text
+            @click="toggleAward(currentTeam, currentAward.name)"
+          >
             {{ currentTeam.awarded ? "Tirar premiação" : "Premiar" }}
           </v-btn>
 
-
-          <v-btn  color="#F9A825" text @click="deleteAward(currentTeam, currentAward.name)">
+          <v-btn color="#F9A825" text @click="deleteAward(currentTeam, currentAward.name)">
             Deletar
           </v-btn>
         </v-card-actions>
@@ -104,225 +125,79 @@
   </v-container>
 </template>
 
-<script>
-import { ref, onMounted, watch, computed } from "vue";
+<script setup>
+import { ref, computed } from "vue";
 import { useApi } from "@/composables/useApi";
 import { useEventStore } from "@/stores/eventStore";
+import { useAwards } from "@/composables/useAwards";
 import draggable from "vuedraggable";
 
+const { apiRequest } = useApi();
+const eventStore = useEventStore();
 
+const apiBase = process.env.VUE_APP_SERVER_DOMAIN;
+const isFTC = computed(() => eventStore.selectedEvent?.program === "ftc");
 
-export default {
-  components: { draggable },
-  setup() {
-    const api = useApi();
-    const eventStore = useEventStore();
-    const apiBase = process.env.VUE_APP_SERVER_DOMAIN
+const dialog = ref(false);
+const currentTeam = ref(null);
+const currentAward = ref(null);
 
-    const isFTC = computed(() => {
-      const event = eventStore.selectedEvent;
-      if (!event) return false;
+const { groupedAwards, loading, refresh: reloadAwards } = useAwards();
 
-      // ajuste conforme seu modelo real
-      return event.program === "ftc";
-    });
+const positionClass = (team) => (team.premiado ? "winner" : "");
 
- 
+const displayAward = (award) => {
+  currentAward.value = award;
+  dialog.value = true;
+};
 
-    const loader = ref(false);
-    const dialog = ref(false);
-    const groupedAwards = ref([]);
+const openDialog = (team, award) => {
+  currentTeam.value = team;
+  currentAward.value = award;
+  dialog.value = !!team.motive;
+};
 
-    const currentTeam = ref(null);
-    const currentAward = ref(null);
+const onDragEnd = async (_event, awardTeams) => {
+  const payload = awardTeams.teams.map((team, index) => ({
+    id: team.idAwards,
+    order: index,
+  }));
+  await apiRequest("awards/order", {
+    method: "PUT",
+    body: JSON.stringify({ awards: payload }),
+  });
+};
 
-    const onDragEnd = async (event, awardTeams) => {
-      const payload = awardTeams.teams.map((team, index) => ({
-        id: team.idAwards,
-        order: index
-      }));
+const toggleNomination = async (team, award) => {
+  await apiRequest("awards", {
+    method: "PUT",
+    body: JSON.stringify({ id: team.Teams_idTeams, nominated: !team.nominated, award }),
+  });
+  team.nominated = !team.nominated;
+  dialog.value = false;
+};
 
-      console.log("Evento", event);
-      console.log("payload", payload)
-      await api.apiRequest("awards/order", {
-        method: "PUT",
-        body: JSON.stringify({ awards: payload })   // 👈 aqui
-      });
-    };
-    const fetchAwards = async () => {
-      if (!eventStore.selectedEvent?.value) return;
+const toggleAward = async (team, award) => {
+  await apiRequest("awards/awarded", {
+    method: "PUT",
+    body: JSON.stringify({ id: team.Teams_idTeams, awarded: !team.awarded, award }),
+  });
+  team.awarded = !team.awarded;
+  dialog.value = false;
+  await reloadAwards();
+};
 
-      loader.value = true;
+const deleteAward = async (team, award) => {
+  await apiRequest("awards", {
+    method: "DELETE",
+    body: JSON.stringify({ id: team.Teams_idTeams, award }),
+  });
 
-      try {
-        const result = await api.apiRequest("awards", {
-          method: "GET",
-          headers: { eventCode: eventStore.selectedEvent.value },
-        });
-
-        const teamStats = {};
-        const grouped = {};
-
-        // 1️⃣ Mapeia histórico corretamente por TIME
-        result.forEach((item) => {
-          const teamId = item.Teams_idTeams; // ✅ ID REAL DO TIME
-          if (!teamStats[teamId]) {
-            teamStats[teamId] = {
-              hasAE: false,
-              hasMCI: false,
-              hasThink: false,
-              teamNumber: item.teamNumber,
-              teamName: item.teamName,
-              nominated: true
-            };
-          }
-          if (item.category === "AE") teamStats[teamId].hasAE = true;
-          if (item.category === "MCI") teamStats[teamId].hasMCI = true;
-          if (item.awardName === "Think Award") {
-            teamStats[teamId].hasThink = true;
-          }
-
-          // agrupamento normal
-          if (!grouped[item.awardName]) {
-            grouped[item.awardName] = {
-              name: item.awardName,
-              teams: [],
-            };
-          }
-
-          grouped[item.awardName].teams.push(item);
-        });
-
-
-        // 2️⃣ Calcula Inspire (1 equipe = 1 entrada)
-        const inspireTeams = Object.values(teamStats)
-          .filter(
-            (team) =>
-              team.hasAE &&
-              team.hasMCI &&
-              team.hasThink
-          )
-        // 3️⃣ Cria ou remove Inspire
-        if (inspireTeams.length > 0) {
-          grouped["Inspire Award"] = {
-            name: "Inspire Award",
-            teams: inspireTeams,
-          };
-        } else {
-          delete grouped["Inspire Award"];
-        }
-
-        groupedAwards.value = Object.values(grouped);
-      } catch (error) {
-        console.error("Erro ao buscar prêmios:", error.message);
-      } finally {
-        loader.value = false;
-      }
-    };
-
-    const displayAward = (award) => {
-      currentAward.value = award;
-      dialog.value = true;
-    };
-
-    const openDialog = (team, award) => {
-      currentTeam.value = team;
-      currentAward.value = award;
-      team.motive ? dialog.value = true : dialog.value = false;
-    };
-
-    const toggleNomination = async (team, award) => {
-      try {
-        await api.apiRequest(`awards`, {
-          method: "PUT",
-          body: JSON.stringify({
-            id: team.Teams_idTeams,
-            nominated: !team.nominated,
-            award: award
-          }),
-        });
-        team.nominated = !team.nominated;
-        dialog.value = !dialog.value
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    const toggleAward = async (team, award) => {
-      try {
-        await api.apiRequest(`awards/awarded`, {
-          method: "PUT",
-          body: JSON.stringify({
-            id: team.Teams_idTeams,
-            awarded: !team.awarded,
-            award: award
-          }),
-        });
-        team.awarded = !team.awarded;
-        fetchAwards()
-        dialog.value = !dialog.value
-
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-
-    const deleteAward = async (team, award) => {
-      try {
-        await api.apiRequest(`awards`, {
-          method: "DELETE",
-          body: JSON.stringify({
-            id: team.Teams_idTeams,
-            award: award
-          }),
-        });
-
-        const awardDeleted = groupedAwards.value.find(
-          (a) => a.name === currentAward.value.name
-        );
-
-        awardDeleted.teams = awardDeleted.teams.filter(
-          (t) => t.Teams_idTeams !== team.Teams_idTeams
-        );
-
-        dialog.value = false;
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    const positionClass = (team) => {
-      if (team.premiado) return "winner";
-      return "";
-    };
-
-    watch(
-      () => eventStore.selectedEvent,
-      (newEvent, oldEvent) => {
-        if (newEvent?.value !== oldEvent?.value) fetchAwards();
-      }
-    );
-
-    onMounted(fetchAwards);
-
-    return {
-      apiBase,
-      isFTC,
-      loader,
-      dialog,
-      groupedAwards,
-      currentTeam,
-      currentAward,
-      displayAward,
-      openDialog,
-      toggleNomination,
-      deleteAward,
-      positionClass,
-      onDragEnd,
-      toggleAward
-    };
-  },
+  const awardGroup = groupedAwards.value.find((a) => a.name === currentAward.value.name);
+  if (awardGroup) {
+    awardGroup.teams = awardGroup.teams.filter((t) => t.Teams_idTeams !== team.Teams_idTeams);
+  }
+  dialog.value = false;
 };
 </script>
 

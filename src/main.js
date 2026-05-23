@@ -30,7 +30,6 @@ import AddTeam from './components/AddTeam.vue'
 import NominateTeam from './components/NominateTeam.vue'
 import ListTeams from './components/ListTeams.vue'
 import Home from './components/Home.vue'
-import Callback from './components/CallBack.vue'
 import AddUser from './components/AddUser.vue'
 import Login from './components/Login.vue'
 import BulkAddTeam from './components/BulkAddTeam.vue'
@@ -62,7 +61,6 @@ const routes = [
   { path: '/nominateteam', name: 'NominateTeam', component: NominateTeam },
   { path: '/listTeams', name: 'ListTeams', component: ListTeams },
   { path: '/adicionar-foto', name: 'AddPhoto', component: AddPicture },
-  { path: '/callback', name: 'Callback', component: Callback },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/adduser', name: 'AddUser', component: AddUser },
   { path: '/:pathMatch(.*)*', redirect: '/listTeams' }, // rota padrão
