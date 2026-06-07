@@ -1,9 +1,8 @@
 <template>
   <v-container>
-    <!-- Tabs -->
     <v-tabs v-model="activeTab" background-color="#598290" dark>
-      <v-tab value="init">Inicialização</v-tab>
-      <v-tab value="judges">Juízes</v-tab>
+      <v-tab value="init">{{ $t('dashboard.tabs.initialization') }}</v-tab>
+      <v-tab value="judges">{{ $t('dashboard.tabs.judges') }}</v-tab>
     </v-tabs>
 
     <div class="tab-content">
@@ -12,7 +11,7 @@
         <v-text-field
           autocomplete="off"
           v-model="eventCode"
-          label="Código do Evento"
+          :label="$t('dashboard.fields.eventCode')"
           prepend-icon="mdi-pound-box-outline"
           variant="solo-filled"
         />
@@ -24,7 +23,7 @@
           item-title="text"
           item-value="value"
           prepend-icon="mdi-application-braces-outline"
-          label="Selecione o programa"
+          :label="$t('dashboard.fields.selectProgram')"
           variant="solo-filled"
         />
 
@@ -36,7 +35,7 @@
           @click="startEvent"
           :loading="loader"
         >
-          Inicializar evento
+          {{ $t('dashboard.submit.initializeEvent') }}
         </v-btn>
       </div>
 
@@ -47,7 +46,7 @@
           <v-col cols="12" md="5" lg="4">
             <v-card max-width="450">
               <v-list density="compact">
-                <v-list-subheader>Juízes</v-list-subheader>
+                <v-list-subheader>{{ $t('dashboard.tabs.judges') }}</v-list-subheader>
 
                 <v-list-item
                   v-if="judges.length > 0"
@@ -68,7 +67,7 @@
                   </template>
                 </v-list-item>
 
-                <v-card v-else text="Não há juízes cadastrados" />
+                <v-card v-else :text="$t('dashboard.messages.noJudgesRegistered')" />
               </v-list>
             </v-card>
           </v-col>
@@ -78,7 +77,7 @@
             <v-text-field
               autocomplete="off"
               v-model="judgeName"
-              label="Nome dos Juízes"
+              :label="$t('dashboard.fields.judgeName')"
               prepend-icon="mdi-account-multiple-check"
               variant="solo-filled"
             />
@@ -92,7 +91,7 @@
               :loading="loader"
               :disabled="!judgeName || judgeName.trim().length < 1"
             >
-              Adicionar Juízes
+              {{ $t('dashboard.submit.addJudges') }}
             </v-btn>
           </v-col>
         </v-row>

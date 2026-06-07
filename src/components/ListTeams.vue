@@ -27,9 +27,9 @@
           <v-table>
             <thead>
               <tr>
-                <th class="text-left">Nome</th>
-                <th class="text-left">Número</th>
-                <th class="text-left">Estado</th>
+                <th class="text-left">{{ $t('listTeams.headers.name') }}</th>
+                <th class="text-left">{{ $t('listTeams.headers.teamNumber') }}</th>
+                <th class="text-left">{{ $t('listTeams.headers.state') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -66,7 +66,8 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, computed, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { useApi } from "@/composables/useApi";
 import { useEventStore } from "@/stores/eventStore";
 import { useTeams } from "@/composables/useTeams";
@@ -74,6 +75,7 @@ import { useTeamImage } from "@/composables/useTeamImage";
 
 const { apiRequest } = useApi();
 const eventStore = useEventStore();
+const { t } = useI18n();
 
 const dialog = ref(false);
 const selectedIndex = ref(0);
@@ -82,12 +84,12 @@ const event = ref(null);
 const { teams, loading } = useTeams();
 const { teamImageSrc } = useTeamImage(teams, selectedIndex);
 
-const headers = [
-  { title: "Estado", value: "state" },
-  { title: "Nome", value: "text" },
-  { title: "#Time", value: "value" },
-  { title: "Escola", value: "school" },
-];
+const headers = computed(() => [
+  { title: t("listTeams.headers.state"),      value: "state" },
+  { title: t("listTeams.headers.name"),       value: "text" },
+  { title: t("listTeams.headers.teamNumber"), value: "value" },
+  { title: t("listTeams.headers.school"),     value: "school" },
+]);
 
 const openDialog = (item) => {
   const i = teams.value.findIndex((t) => t.value === item.value);
@@ -95,7 +97,6 @@ const openDialog = (item) => {
   dialog.value = true;
 };
 
-// Fetch event info whenever the selected event changes
 const fetchEvent = async () => {
   if (!eventStore.selectedEvent?.value) return;
   try {

@@ -1,0 +1,181 @@
+{
+  "common": {
+    "name": "Nome",
+    "state": "Estado",
+    "school": "Escola",
+    "teamNumber": "#Time",
+    "add": "Adicionar",
+    "send": "Enviar",
+    "delete": "Deletar",
+    "error": "Erro",
+    "success": "Sucesso"
+  },
+  "app": {
+    "selectEvent": "Selecione o evento",
+    "logout": "Logout",
+    "copyright": "© 2026 - Silver Tech",
+    "menu": {
+      "login": "Login",
+      "dashboard": "Dashboard",
+      "addPhoto": "Adicionar Foto",
+      "listTeams": "Lista de Times",
+      "nominateTeam": "Indicar Times",
+      "nonNominated": "Times não indicados",
+      "visits": "Visitas",
+      "awards": "Indicações"
+    }
+  },
+  "home": {
+    "section": "Home",
+    "title": "Bem-vindo!",
+    "subtitle": "Software de deliberação para torneios de FRC e FTC"
+  },
+  "login": {
+    "title": "Login",
+    "userName": "Nome do Usuário",
+    "password": "Senha",
+    "submit": "Login",
+    "errors": {
+      "userNameRequired": "Nome do Usuário não pode ser vazio",
+      "passwordRequired": "Senha não pode ser vazia",
+      "loginFailed": "Erro ao logar"
+    }
+  },
+  "addUser": {
+    "title": "Adicionar Usuário",
+    "description": "Adicionar um usuário ao sistema.",
+    "submit": "Adicionar",
+    "fields": {
+      "fullName": "Nome completo",
+      "userName": "Nome do Usuário",
+      "password": "Senha",
+      "repeatPassword": "Repita a senha",
+      "selectPermission": "Selecione a permissão"
+    },
+    "permissions": {
+      "admin": "Administrador",
+      "roomJudge": "Juiz de Sala"
+    },
+    "errors": {
+      "fullNameRequired": "Nome completo é obrigatório",
+      "userNameRequired": "Nome de usuário é obrigatório",
+      "passwordRequired": "Senha é obrigatória",
+      "repeatPasswordRequired": "Confirmação é obrigatória",
+      "permissionRequired": "Permissão é obrigatória",
+      "passwordMismatch": "Senhas não conferem!",
+      "userAlreadyExists": "Usuário já existe!"
+    },
+    "dialog": {
+      "successTitle": "Sucesso",
+      "successMessage": "Usuário adicionado!",
+      "errorTitle": "Erro"
+    }
+  },
+  "addTeam": {
+    "title": "Adicionar Time",
+    "description": "Adicione um time ao sistema, não se esqueça de confirmar os dados antes de enviar. Esta ação deve ser realizada apenas pela equipe de organização do evento.",
+    "submit": "Adicionar",
+    "fields": {
+      "teamName": "Nome da Equipe",
+      "teamNumber": "Número da Equipe",
+      "school": "Escola",
+      "selectState": "Selecione o estado"
+    },
+    "errors": {
+      "invalidNumber": "Número não válido."
+    }
+  },
+  "addPicture": {
+    "title": "Adicionar Foto",
+    "description": "Anexe uma imagem para o time selecionado.",
+    "submit": "Enviar",
+    "fields": {
+      "selectTeam": "Selecione o time",
+      "attachImage": "Anexar imagem"
+    }
+  },
+  "visits": {
+    "title": "Controle de visitas",
+    "headers": {
+      "name": "Nome",
+      "number": "Número",
+      "visitAE": "Visita AE",
+      "visitMCI": "Visita MCI",
+      "visitExtra": "Visita Extra"
+    }
+  },
+  "listTeams": {
+    "headers": {
+      "state": "Estado",
+      "name": "Nome",
+      "teamNumber": "#Time",
+      "school": "Escola"
+    }
+  },
+  "nonNominated": {
+    "title": "Times não indicados",
+    "headers": {
+      "state": "Estado",
+      "name": "Nome",
+      "teamNumber": "#Time",
+      "school": "Escola"
+    }
+  },
+  "nominateTeam": {
+    "title": "Indicar Time",
+    "submit": "Enviar",
+    "fields": {
+      "selectAward": "Selecione o prêmio",
+      "selectTeam": "Selecione o time",
+      "selectRoom": "Selecione a Dupla",
+      "justification": "Justificativa",
+      "optionalImage": "Enviar imagem (opcional)"
+    },
+    "errors": {
+      "fillAllFields": "Preencha todos os campos antes de enviar."
+    }
+  },
+  "dashboard": {
+    "tabs": {
+      "initialization": "Inicialização",
+      "judges": "Juízes"
+    },
+    "fields": {
+      "eventCode": "Código do Evento",
+      "selectProgram": "Selecione o programa",
+      "judgeName": "Nome dos Juízes"
+    },
+    "submit": {
+      "initializeEvent": "Inicializar evento",
+      "addJudges": "Adicionar Juízes"
+    },
+    "messages": {
+      "noJudgesRegistered": "Não há juízes cadastrados"
+    }
+  },
+  "awards": {
+    "headers": {
+      "award": "Prêmio",
+      "team": "Time",
+      "room": "Sala"
+    },
+    "dialog": {
+      "nominatedBy": "Indicado por:",
+      "description": "Descrição:",
+      "consider": "Considerar",
+      "removeConsideration": "Retirar de consideração",
+      "giveAward": "Premiar",
+      "removeAward": "Tirar premiação",
+      "delete": "Deletar"
+    },
+    "special": {
+      "inspireAward": "Inspire Award"
+    }
+  },
+  "api": {
+    "sessionExpired": "Sessão expirada. Você será desconectado.",
+    "httpError": "Erro {status}: {statusText}",
+    "communicationFailed": "Falha na comunicação: {message}",
+    "unauthorized": "Usuário não autorizado (401)"
+  }
+}

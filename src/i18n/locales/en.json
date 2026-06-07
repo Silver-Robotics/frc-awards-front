@@ -1,0 +1,181 @@
+{
+  "common": {
+    "name": "Name",
+    "state": "State",
+    "school": "School",
+    "teamNumber": "#Team",
+    "add": "Add",
+    "send": "Send",
+    "delete": "Delete",
+    "error": "Error",
+    "success": "Success"
+  },
+  "app": {
+    "selectEvent": "Select event",
+    "logout": "Logout",
+    "copyright": "© 2026 - Silver Tech",
+    "menu": {
+      "login": "Login",
+      "dashboard": "Dashboard",
+      "addPhoto": "Add Photo",
+      "listTeams": "Team List",
+      "nominateTeam": "Nominate Teams",
+      "nonNominated": "Non-nominated Teams",
+      "visits": "Visits",
+      "awards": "Nominations"
+    }
+  },
+  "home": {
+    "section": "Home",
+    "title": "Welcome!",
+    "subtitle": "Deliberation software for FRC and FTC tournaments"
+  },
+  "login": {
+    "title": "Login",
+    "userName": "Username",
+    "password": "Password",
+    "submit": "Login",
+    "errors": {
+      "userNameRequired": "Username cannot be empty",
+      "passwordRequired": "Password cannot be empty",
+      "loginFailed": "Login failed"
+    }
+  },
+  "addUser": {
+    "title": "Add User",
+    "description": "Add a user to the system.",
+    "submit": "Add",
+    "fields": {
+      "fullName": "Full name",
+      "userName": "Username",
+      "password": "Password",
+      "repeatPassword": "Repeat password",
+      "selectPermission": "Select permission"
+    },
+    "permissions": {
+      "admin": "Administrator",
+      "roomJudge": "Room Judge"
+    },
+    "errors": {
+      "fullNameRequired": "Full name is required",
+      "userNameRequired": "Username is required",
+      "passwordRequired": "Password is required",
+      "repeatPasswordRequired": "Password confirmation is required",
+      "permissionRequired": "Permission is required",
+      "passwordMismatch": "Passwords do not match!",
+      "userAlreadyExists": "User already exists!"
+    },
+    "dialog": {
+      "successTitle": "Success",
+      "successMessage": "User added!",
+      "errorTitle": "Error"
+    }
+  },
+  "addTeam": {
+    "title": "Add Team",
+    "description": "Add a team to the system. Make sure to confirm the data before submitting. This action should only be performed by the event organization team.",
+    "submit": "Add",
+    "fields": {
+      "teamName": "Team Name",
+      "teamNumber": "Team Number",
+      "school": "School",
+      "selectState": "Select state"
+    },
+    "errors": {
+      "invalidNumber": "Invalid number."
+    }
+  },
+  "addPicture": {
+    "title": "Add Photo",
+    "description": "Attach an image for the selected team.",
+    "submit": "Send",
+    "fields": {
+      "selectTeam": "Select team",
+      "attachImage": "Attach image"
+    }
+  },
+  "visits": {
+    "title": "Visit tracking",
+    "headers": {
+      "name": "Name",
+      "number": "Number",
+      "visitAE": "AE Visit",
+      "visitMCI": "MCI Visit",
+      "visitExtra": "Extra Visit"
+    }
+  },
+  "listTeams": {
+    "headers": {
+      "state": "State",
+      "name": "Name",
+      "teamNumber": "#Team",
+      "school": "School"
+    }
+  },
+  "nonNominated": {
+    "title": "Non-nominated teams",
+    "headers": {
+      "state": "State",
+      "name": "Name",
+      "teamNumber": "#Team",
+      "school": "School"
+    }
+  },
+  "nominateTeam": {
+    "title": "Nominate Team",
+    "submit": "Submit",
+    "fields": {
+      "selectAward": "Select award",
+      "selectTeam": "Select team",
+      "selectRoom": "Select Room / Pair",
+      "justification": "Justification",
+      "optionalImage": "Upload image (optional)"
+    },
+    "errors": {
+      "fillAllFields": "Please fill in all fields before submitting."
+    }
+  },
+  "dashboard": {
+    "tabs": {
+      "initialization": "Initialization",
+      "judges": "Judges"
+    },
+    "fields": {
+      "eventCode": "Event Code",
+      "selectProgram": "Select program",
+      "judgeName": "Judge Name"
+    },
+    "submit": {
+      "initializeEvent": "Initialize event",
+      "addJudges": "Add Judges"
+    },
+    "messages": {
+      "noJudgesRegistered": "No judges registered"
+    }
+  },
+  "awards": {
+    "headers": {
+      "award": "Award",
+      "team": "Team",
+      "room": "Room"
+    },
+    "dialog": {
+      "nominatedBy": "Nominated by:",
+      "description": "Description:",
+      "consider": "Consider",
+      "removeConsideration": "Remove from consideration",
+      "giveAward": "Award",
+      "removeAward": "Remove award",
+      "delete": "Delete"
+    },
+    "special": {
+      "inspireAward": "Inspire Award"
+    }
+  },
+  "api": {
+    "sessionExpired": "Session expired. You will be logged out.",
+    "httpError": "Error {status}: {statusText}",
+    "communicationFailed": "Communication error: {message}",
+    "unauthorized": "Unauthorized (401)"
+  }
+}

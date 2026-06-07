@@ -7,9 +7,9 @@
           <v-table>
             <thead>
               <tr>
-                <th class="text-left">Prêmio</th>
-                <th class="text-left">Time</th>
-                <th class="text-left">Sala</th>
+                <th class="text-left">{{ $t('awards.headers.award') }}</th>
+                <th class="text-left">{{ $t('awards.headers.team') }}</th>
+                <th class="text-left">{{ $t('awards.headers.room') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -85,8 +85,8 @@
         <v-card-subtitle>{{ `${currentTeam.teamName} - ${currentTeam.teamNumber}` }}</v-card-subtitle>
 
         <v-card-text>
-          <b>Indicado por:</b> {{ currentTeam.judge }}<br />
-          <b>Descrição:</b> {{ currentTeam.motive }}
+          <b>{{ $t('awards.dialog.nominatedBy') }}</b> {{ currentTeam.judge }}<br />
+          <b>{{ $t('awards.dialog.description') }}</b> {{ currentTeam.motive }}
         </v-card-text>
 
         <v-img
@@ -104,7 +104,7 @@
             text
             @click="toggleNomination(currentTeam, currentAward.name)"
           >
-            {{ currentTeam.nominated ? "Retirar de consideração" : "Considerar" }}
+            {{ currentTeam.nominated ? $t('awards.dialog.removeConsideration') : $t('awards.dialog.consider') }}
           </v-btn>
 
           <v-btn
@@ -113,11 +113,11 @@
             text
             @click="toggleAward(currentTeam, currentAward.name)"
           >
-            {{ currentTeam.awarded ? "Tirar premiação" : "Premiar" }}
+            {{ currentTeam.awarded ? $t('awards.dialog.removeAward') : $t('awards.dialog.giveAward') }}
           </v-btn>
 
           <v-btn color="#F9A825" text @click="deleteAward(currentTeam, currentAward.name)">
-            Deletar
+            {{ $t('awards.dialog.delete') }}
           </v-btn>
         </v-card-actions>
       </v-card>

@@ -2,9 +2,9 @@
   <v-form ref="form">
     <v-container fluid>
       <CardTitlePage
-        titulo="Adicionar Foto"
+        :titulo="$t('addPicture.title')"
         icon="mdi-camera"
-        body="Anexe uma imagem para o time selecionado."
+        :body="$t('addPicture.description')"
         class="card-title"
       />
 
@@ -17,7 +17,7 @@
             :items="teams"
             item-title="text"
             item-value="value"
-            label="Selecione o time"
+            :label="$t('addPicture.fields.selectTeam')"
             density="comfortable"
             outlined
           />
@@ -28,7 +28,7 @@
             @change="onFileChange"
             prepend-icon="mdi-image-plus"
             accept="image/*"
-            label="Anexar imagem"
+            :label="$t('addPicture.fields.attachImage')"
             density="comfortable"
             outlined
           />
@@ -43,7 +43,7 @@
           elevation="4"
           :disabled="!canSubmit"
         >
-          Enviar
+          {{ $t('addPicture.submit') }}
         </v-btn>
       </v-row>
     </v-container>

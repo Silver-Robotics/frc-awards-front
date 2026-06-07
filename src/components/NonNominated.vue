@@ -14,9 +14,9 @@
           <v-table>
             <thead>
               <tr>
-                <th class="text-left">Nome</th>
-                <th class="text-left">Número</th>
-                <th class="text-left">Estado</th>
+                <th class="text-left">{{ $t('nonNominated.headers.name') }}</th>
+                <th class="text-left">{{ $t('nonNominated.headers.teamNumber') }}</th>
+                <th class="text-left">{{ $t('nonNominated.headers.state') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -34,7 +34,7 @@
     <!-- Non-nominated teams table -->
     <v-container v-else fluid>
       <v-card elevation="2" class="pa-4">
-        <v-card-title class="text-h6 font-weight-bold">Times não indicados</v-card-title>
+        <v-card-title class="text-h6 font-weight-bold">{{ $t('nonNominated.title') }}</v-card-title>
 
         <v-data-table
           :headers="headers"
@@ -51,9 +51,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { useTeams } from "@/composables/useTeams";
 import { useTeamImage } from "@/composables/useTeamImage";
+
+const { t } = useI18n();
 
 const dialog = ref(false);
 const selectedIndex = ref(0);
@@ -61,12 +64,12 @@ const selectedIndex = ref(0);
 const { teams, loading } = useTeams("awards/non-nominated/teams");
 const { teamImageSrc } = useTeamImage(teams, selectedIndex);
 
-const headers = [
-  { title: "Estado", value: "state" },
-  { title: "Nome", value: "text" },
-  { title: "#Time", value: "value" },
-  { title: "Escola", value: "school" },
-];
+const headers = computed(() => [
+  { title: t("nonNominated.headers.state"),      value: "state" },
+  { title: t("nonNominated.headers.name"),       value: "text" },
+  { title: t("nonNominated.headers.teamNumber"), value: "value" },
+  { title: t("nonNominated.headers.school"),     value: "school" },
+]);
 
 const openDialog = (item) => {
   const i = teams.value.findIndex((t) => t.value === item.value);

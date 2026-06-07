@@ -2,7 +2,7 @@
   <v-form ref="form">
     <v-container fluid>
       <v-card elevation="2" class="pa-4">
-        <v-card-title class="text-h6 font-weight-bold">Indicar Time</v-card-title>
+        <v-card-title class="text-h6 font-weight-bold">{{ $t('nominateTeam.title') }}</v-card-title>
 
         <!-- Loading skeleton -->
         <v-skeleton-loader v-if="loading" class="mx-auto mt-6 pa-4" type="card" elevation="2">
@@ -25,7 +25,7 @@
               :items="premios"
               item-title="text"
               item-value="value"
-              label="Selecione o prêmio"
+              :label="$t('nominateTeam.fields.selectAward')"
               variant="solo-filled"
             />
           </v-col>
@@ -36,7 +36,7 @@
               :items="teamOptions"
               item-title="text"
               item-value="value"
-              label="Selecione o time"
+              :label="$t('nominateTeam.fields.selectTeam')"
               variant="solo-filled"
             />
           </v-col>
@@ -46,7 +46,7 @@
               v-model="room"
               :items="isFTC ? salasFTC : salasFRC"
               item-title="text"
-              label="Selecione a Dupla"
+              :label="$t('nominateTeam.fields.selectRoom')"
               variant="solo-filled"
             />
           </v-col>
@@ -54,7 +54,7 @@
 
         <v-row v-if="!loading">
           <v-col cols="12">
-            <v-textarea v-model="message" label="Justificativa" outlined dense />
+            <v-textarea v-model="message" :label="$t('nominateTeam.fields.justification')" outlined dense />
           </v-col>
         </v-row>
 
@@ -62,7 +62,7 @@
           <v-col cols="12" md="6">
             <v-file-input
               v-model="image"
-              label="Enviar imagem (opcional)"
+              :label="$t('nominateTeam.fields.optionalImage')"
               accept="image/*"
               prepend-icon="mdi-camera"
               variant="solo-filled"
@@ -81,7 +81,7 @@
               outlined
               :disabled="!team || !award || !room || !message"
             >
-              Enviar
+              {{ $t('nominateTeam.submit') }}
             </v-btn>
           </v-col>
         </v-row>
@@ -92,11 +92,13 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { useApi } from "@/composables/useApi";
 import { useEventStore } from "@/stores/eventStore";
 import { useTeams } from "@/composables/useTeams";
 
 const { apiRequest } = useApi();
+const { t } = useI18n();
 const eventStore = useEventStore();
 
 const team = ref(null);
@@ -118,31 +120,32 @@ const teamOptions = computed(() =>
 
 const isFTC = computed(() => eventStore.selectedEvent?.program === "ftc");
 
+// Award names are official FIRST brand names — not translated
 const premiosFRC = [
-  { text: "Autonomous", value: 1, category: "MCI" },
-  { text: "Creativity", value: 2, category: "MCI" },
-  { text: "Excellence in Engineering", value: 3, category: "MCI" },
-  { text: "Industrial Design", value: 4, category: "MCI" },
-  { text: "Innovation in Control", value: 5, category: "MCI" },
-  { text: "Quality", value: 6, category: "MCI" },
-  { text: "Engineering Inspiration", value: 7, category: "AE" },
-  { text: "Gracious Professionalism", value: 8, category: "AE" },
-  { text: "Imagery", value: 9, category: "AE" },
-  { text: "Judges", value: 10, category: "AE" },
-  { text: "Rookie All Star", value: 11, category: "AE" },
-  { text: "Rising All Star", value: 12, category: "AE" },
-  { text: "Team Spirit", value: 13, category: "AE" },
-  { text: "Sustainability", value: 14, category: "AE" },
+  { text: "Autonomous",               value: 1,  category: "MCI" },
+  { text: "Creativity",               value: 2,  category: "MCI" },
+  { text: "Excellence in Engineering",value: 3,  category: "MCI" },
+  { text: "Industrial Design",        value: 4,  category: "MCI" },
+  { text: "Innovation in Control",    value: 5,  category: "MCI" },
+  { text: "Quality",                  value: 6,  category: "MCI" },
+  { text: "Engineering Inspiration",  value: 7,  category: "AE"  },
+  { text: "Gracious Professionalism", value: 8,  category: "AE"  },
+  { text: "Imagery",                  value: 9,  category: "AE"  },
+  { text: "Judges",                   value: 10, category: "AE"  },
+  { text: "Rookie All Star",          value: 11, category: "AE"  },
+  { text: "Rising All Star",          value: 12, category: "AE"  },
+  { text: "Team Spirit",              value: 13, category: "AE"  },
+  { text: "Sustainability",           value: 14, category: "AE"  },
 ];
 
 const premiosFTC = [
-  { text: "Think Award", value: 2, category: "MCI" },
-  { text: "Connect Award", value: 3, category: "AE" },
-  { text: "Innovate Award", value: 4, category: "MCI" },
-  { text: "Design Award", value: 5, category: "MCI" },
+  { text: "Think Award",   value: 2, category: "MCI" },
+  { text: "Connect Award", value: 3, category: "AE"  },
+  { text: "Innovate Award",value: 4, category: "MCI" },
+  { text: "Design Award",  value: 5, category: "MCI" },
   { text: "Control Award", value: 6, category: "MCI" },
-  { text: "Reach Award", value: 7, category: "AE" },
-  { text: "Sustain Award", value: 8, category: "AE" },
+  { text: "Reach Award",   value: 7, category: "AE"  },
+  { text: "Sustain Award", value: 8, category: "AE"  },
 ];
 
 const salasFRC = [
@@ -168,7 +171,7 @@ const premios = computed(() => (isFTC.value ? premiosFTC : premiosFRC));
 
 const indicaTime = async () => {
   if (!team.value || !award.value || !room.value || !message.value) {
-    alert("Preencha todos os campos antes de enviar.");
+    alert(t("nominateTeam.errors.fillAllFields"));
     return;
   }
 

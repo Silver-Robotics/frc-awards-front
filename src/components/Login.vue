@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-col cols="12" md="6">
         <v-card>
-          <v-card-title class="headline">Login</v-card-title>
+          <v-card-title class="headline">{{ $t('login.title') }}</v-card-title>
 
           <v-card-text>
             <Form :validation-schema="schema" @submit="login">
@@ -12,7 +12,7 @@
                   <Field
                     name="userName"
                     as="v-text-field"
-                    label="Nome do Usuário"
+                    :label="$t('login.userName')"
                     prepend-icon="mdi-card-text-outline"
                     v-model="userName"
                   />
@@ -27,7 +27,7 @@
                   <Field
                     name="password"
                     as="v-text-field"
-                    label="Senha"
+                    :label="$t('login.password')"
                     prepend-icon="mdi-lock-question"
                     type="password"
                     v-model="password"
@@ -43,7 +43,7 @@
               <v-row>
                 <v-col cols="12">
                   <v-btn color="#68C3E2" type="submit" class="ma-2" block>
-                    Login
+                    {{ $t('login.submit') }}
                   </v-btn>
                 </v-col>
               </v-row>
@@ -56,22 +56,26 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import { useApi } from "@/composables/useApi";
 
 const router = useRouter();
 const { apiRequest } = useApi();
+const { t } = useI18n();
 
 const userName = ref("");
 const password = ref("");
 
-const schema = yup.object({
-  userName: yup.string().required("Nome do Usuário não pode ser vazio"),
-  password: yup.string().required("Senha não pode ser vazia"),
-});
+const schema = computed(() =>
+  yup.object({
+    userName: yup.string().required(t("login.errors.userNameRequired")),
+    password: yup.string().required(t("login.errors.passwordRequired")),
+  })
+);
 
 const login = async () => {
   try {
@@ -81,13 +85,13 @@ const login = async () => {
         method: "POST",
         body: JSON.stringify({ userName: userName.value, password: password.value }),
       },
-      false // no Auth0 token needed for login
+      false
     );
 
     if (data?.status === "success") {
       router.push("/listTeams");
     } else {
-      throw new Error(data?.message || "Erro ao logar");
+      throw new Error(data?.message || t("login.errors.loginFailed"));
     }
   } catch (err) {
     alert(err.message);

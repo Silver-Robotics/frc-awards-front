@@ -1,0 +1,181 @@
+{
+  "common": {
+    "name": "Nombre",
+    "state": "Estado",
+    "school": "Escuela",
+    "teamNumber": "#Equipo",
+    "add": "Agregar",
+    "send": "Enviar",
+    "delete": "Eliminar",
+    "error": "Error",
+    "success": "Éxito"
+  },
+  "app": {
+    "selectEvent": "Seleccionar evento",
+    "logout": "Cerrar sesión",
+    "copyright": "© 2026 - Silver Tech",
+    "menu": {
+      "login": "Iniciar sesión",
+      "dashboard": "Panel de control",
+      "addPhoto": "Agregar foto",
+      "listTeams": "Lista de equipos",
+      "nominateTeam": "Nominar equipos",
+      "nonNominated": "Equipos no nominados",
+      "visits": "Visitas",
+      "awards": "Nominaciones"
+    }
+  },
+  "home": {
+    "section": "Inicio",
+    "title": "¡Bienvenido!",
+    "subtitle": "Software de deliberación para torneos de FRC y FTC"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "userName": "Nombre de usuario",
+    "password": "Contraseña",
+    "submit": "Ingresar",
+    "errors": {
+      "userNameRequired": "El nombre de usuario no puede estar vacío",
+      "passwordRequired": "La contraseña no puede estar vacía",
+      "loginFailed": "Error al iniciar sesión"
+    }
+  },
+  "addUser": {
+    "title": "Agregar usuario",
+    "description": "Agregar un usuario al sistema.",
+    "submit": "Agregar",
+    "fields": {
+      "fullName": "Nombre completo",
+      "userName": "Nombre de usuario",
+      "password": "Contraseña",
+      "repeatPassword": "Repetir contraseña",
+      "selectPermission": "Seleccionar permiso"
+    },
+    "permissions": {
+      "admin": "Administrador",
+      "roomJudge": "Juez de sala"
+    },
+    "errors": {
+      "fullNameRequired": "El nombre completo es obligatorio",
+      "userNameRequired": "El nombre de usuario es obligatorio",
+      "passwordRequired": "La contraseña es obligatoria",
+      "repeatPasswordRequired": "La confirmación de contraseña es obligatoria",
+      "permissionRequired": "El permiso es obligatorio",
+      "passwordMismatch": "¡Las contraseñas no coinciden!",
+      "userAlreadyExists": "¡El usuario ya existe!"
+    },
+    "dialog": {
+      "successTitle": "Éxito",
+      "successMessage": "¡Usuario agregado!",
+      "errorTitle": "Error"
+    }
+  },
+  "addTeam": {
+    "title": "Agregar equipo",
+    "description": "Agregue un equipo al sistema. Asegúrese de confirmar los datos antes de enviar. Esta acción debe ser realizada solo por el equipo de organización del evento.",
+    "submit": "Agregar",
+    "fields": {
+      "teamName": "Nombre del equipo",
+      "teamNumber": "Número del equipo",
+      "school": "Escuela",
+      "selectState": "Seleccionar estado"
+    },
+    "errors": {
+      "invalidNumber": "Número no válido."
+    }
+  },
+  "addPicture": {
+    "title": "Agregar foto",
+    "description": "Adjunte una imagen para el equipo seleccionado.",
+    "submit": "Enviar",
+    "fields": {
+      "selectTeam": "Seleccionar equipo",
+      "attachImage": "Adjuntar imagen"
+    }
+  },
+  "visits": {
+    "title": "Control de visitas",
+    "headers": {
+      "name": "Nombre",
+      "number": "Número",
+      "visitAE": "Visita AE",
+      "visitMCI": "Visita MCI",
+      "visitExtra": "Visita extra"
+    }
+  },
+  "listTeams": {
+    "headers": {
+      "state": "Estado",
+      "name": "Nombre",
+      "teamNumber": "#Equipo",
+      "school": "Escuela"
+    }
+  },
+  "nonNominated": {
+    "title": "Equipos no nominados",
+    "headers": {
+      "state": "Estado",
+      "name": "Nombre",
+      "teamNumber": "#Equipo",
+      "school": "Escuela"
+    }
+  },
+  "nominateTeam": {
+    "title": "Nominar equipo",
+    "submit": "Enviar",
+    "fields": {
+      "selectAward": "Seleccionar premio",
+      "selectTeam": "Seleccionar equipo",
+      "selectRoom": "Seleccionar pareja / sala",
+      "justification": "Justificación",
+      "optionalImage": "Subir imagen (opcional)"
+    },
+    "errors": {
+      "fillAllFields": "Por favor, complete todos los campos antes de enviar."
+    }
+  },
+  "dashboard": {
+    "tabs": {
+      "initialization": "Inicialización",
+      "judges": "Jueces"
+    },
+    "fields": {
+      "eventCode": "Código del evento",
+      "selectProgram": "Seleccionar programa",
+      "judgeName": "Nombre del juez"
+    },
+    "submit": {
+      "initializeEvent": "Inicializar evento",
+      "addJudges": "Agregar jueces"
+    },
+    "messages": {
+      "noJudgesRegistered": "No hay jueces registrados"
+    }
+  },
+  "awards": {
+    "headers": {
+      "award": "Premio",
+      "team": "Equipo",
+      "room": "Sala"
+    },
+    "dialog": {
+      "nominatedBy": "Nominado por:",
+      "description": "Descripción:",
+      "consider": "Considerar",
+      "removeConsideration": "Retirar de consideración",
+      "giveAward": "Premiar",
+      "removeAward": "Retirar premio",
+      "delete": "Eliminar"
+    },
+    "special": {
+      "inspireAward": "Inspire Award"
+    }
+  },
+  "api": {
+    "sessionExpired": "Sesión expirada. Será desconectado.",
+    "httpError": "Error {status}: {statusText}",
+    "communicationFailed": "Error de comunicación: {message}",
+    "unauthorized": "No autorizado (401)"
+  }
+}

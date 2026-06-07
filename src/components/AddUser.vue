@@ -2,16 +2,16 @@
   <v-container>
     <v-card class="mx-auto" max-width="500">
       <CardTitlePage
-        titulo="Adicionar Usuário"
+        :titulo="$t('addUser.title')"
         icon="mdi-account-multiple-plus"
-        body="Adicionar um usuário ao sistema."
+        :body="$t('addUser.description')"
       />
 
       <form @submit.prevent="handleSubmit(onSubmit)">
         <v-row>
           <v-col cols="12" md="6">
             <v-text-field
-              label="Nome completo"
+              :label="$t('addUser.fields.fullName')"
               v-model="fields.name.value"
               :error-messages="fields.name.errors"
               prepend-icon="mdi-account-edit"
@@ -20,7 +20,7 @@
 
           <v-col cols="12" md="6">
             <v-text-field
-              label="Nome do Usuário"
+              :label="$t('addUser.fields.userName')"
               v-model="fields.userName.value"
               :error-messages="fields.userName.errors"
               prepend-icon="mdi-card-text-outline"
@@ -29,7 +29,7 @@
 
           <v-col cols="12" md="6">
             <v-text-field
-              label="Senha"
+              :label="$t('addUser.fields.password')"
               v-model="fields.password.value"
               :error-messages="fields.password.errors"
               type="password"
@@ -39,7 +39,7 @@
 
           <v-col cols="12" md="6">
             <v-text-field
-              label="Repita a senha"
+              :label="$t('addUser.fields.repeatPassword')"
               v-model="fields.repeatPassword.value"
               :error-messages="fields.repeatPassword.errors"
               type="password"
@@ -49,7 +49,7 @@
 
           <v-col cols="12" md="6">
             <v-combobox
-              label="Selecione a permissão"
+              :label="$t('addUser.fields.selectPermission')"
               v-model="fields.permission.value"
               :items="possiblePermissions"
               :error-messages="fields.permission.errors"
@@ -58,7 +58,7 @@
         </v-row>
 
         <v-btn type="submit" color="#1E5AA8" depressed outlined :disabled="!isValid">
-          Adicionar
+          {{ $t('addUser.submit') }}
         </v-btn>
       </form>
     </v-card>
@@ -76,7 +76,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { useForm, useField } from "vee-validate";
 import * as yup from "yup";
 import { useApi } from "@/composables/useApi";
@@ -84,19 +85,24 @@ import Loader from "./Loader.vue";
 import CardTitlePage from "./CardTitlePage.vue";
 
 const { apiRequest } = useApi();
+const { t } = useI18n();
 
 const loader = ref(false);
 const dialog = ref(false);
 const dialogMessage = ref({ title: "", message: "" });
-const possiblePermissions = ["Administrador", "Juiz de Sala"];
+
+const possiblePermissions = computed(() => [
+  t("addUser.permissions.admin"),
+  t("addUser.permissions.roomJudge"),
+]);
 
 const { handleSubmit, isValid } = useForm();
 
-const name = useField("name", yup.string().required("Nome completo é obrigatório"));
-const userName = useField("userName", yup.string().required("Nome de usuário é obrigatório"));
-const password = useField("password", yup.string().required("Senha é obrigatória"));
-const repeatPassword = useField("repeatPassword", yup.string().required("Confirmação é obrigatória"));
-const permission = useField("permission", yup.string().required("Permissão é obrigatória"));
+const name = useField("name", yup.string().required(() => t("addUser.errors.fullNameRequired")));
+const userName = useField("userName", yup.string().required(() => t("addUser.errors.userNameRequired")));
+const password = useField("password", yup.string().required(() => t("addUser.errors.passwordRequired")));
+const repeatPassword = useField("repeatPassword", yup.string().required(() => t("addUser.errors.repeatPasswordRequired")));
+const permission = useField("permission", yup.string().required(() => t("addUser.errors.permissionRequired")));
 
 const fields = { name, userName, password, repeatPassword, permission };
 
@@ -104,7 +110,7 @@ const onSubmit = async (values) => {
   loader.value = true;
   try {
     if (values.password !== values.repeatPassword) {
-      throw new Error("Senhas não conferem!");
+      throw new Error(t("addUser.errors.passwordMismatch"));
     }
 
     const res = await apiRequest("users", {
@@ -119,15 +125,21 @@ const onSubmit = async (values) => {
     });
 
     if (res?.SqlError) {
-      if (res.SqlError.errno === 1062) throw new Error("Usuário já existe!");
-      if (res.SqlError.errno === 1162) throw new Error("Senhas não conferem!");
+      if (res.SqlError.errno === 1062) throw new Error(t("addUser.errors.userAlreadyExists"));
+      if (res.SqlError.errno === 1162) throw new Error(t("addUser.errors.passwordMismatch"));
     }
 
     Object.values(fields).forEach((f) => (f.value.value = ""));
-    dialogMessage.value = { title: "Sucesso", message: "Usuário adicionado!" };
+    dialogMessage.value = {
+      title: t("addUser.dialog.successTitle"),
+      message: t("addUser.dialog.successMessage"),
+    };
     dialog.value = true;
   } catch (err) {
-    dialogMessage.value = { title: "Erro", message: err.message };
+    dialogMessage.value = {
+      title: t("addUser.dialog.errorTitle"),
+      message: err.message,
+    };
     dialog.value = true;
   } finally {
     loader.value = false;

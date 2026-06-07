@@ -14,9 +14,9 @@
           <v-table>
             <thead>
               <tr>
-                <th class="text-left">Nome</th>
-                <th class="text-left">Número</th>
-                <th class="text-left">Estado</th>
+                <th class="text-left">{{ $t('common.name') }}</th>
+                <th class="text-left">{{ $t('visits.headers.number') }}</th>
+                <th class="text-left">{{ $t('common.state') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -34,16 +34,16 @@
     <!-- Visit control table -->
     <v-container v-else fluid>
       <v-card elevation="2" class="pa-4">
-        <v-card-title class="text-h6 font-weight-bold">Controle de visitas</v-card-title>
+        <v-card-title class="text-h6 font-weight-bold">{{ $t('visits.title') }}</v-card-title>
 
         <v-data-table hide-default-footer :items-per-page="teams.length">
           <thead>
             <tr>
-              <th class="text-left">Nome</th>
-              <th class="text-left">Número</th>
-              <th class="text-center">Visita AE</th>
-              <th class="text-center">Visita MCI</th>
-              <th class="text-center">Visita Extra</th>
+              <th class="text-left">{{ $t('common.name') }}</th>
+              <th class="text-left">{{ $t('visits.headers.number') }}</th>
+              <th class="text-center">{{ $t('visits.headers.visitAE') }}</th>
+              <th class="text-center">{{ $t('visits.headers.visitMCI') }}</th>
+              <th class="text-center">{{ $t('visits.headers.visitExtra') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -95,8 +95,8 @@ const { teamImageSrc } = useTeamImage(teams, selectedIndex);
 // Coerce API integers/strings to real booleans for v-checkbox
 watch(teams, (newTeams) => {
   newTeams.forEach((team) => {
-    team.visitedTA = team.visitedTA === true || team.visitedTA === "true" || team.visitedTA === 1;
-    team.visitedMCI = team.visitedMCI === true || team.visitedMCI === "true" || team.visitedMCI === 1;
+    team.visitedTA    = team.visitedTA    === true || team.visitedTA    === "true" || team.visitedTA    === 1;
+    team.visitedMCI   = team.visitedMCI   === true || team.visitedMCI   === "true" || team.visitedMCI   === 1;
     team.visitedExtra = team.visitedExtra === true || team.visitedExtra === "true" || team.visitedExtra === 1;
   });
 });
