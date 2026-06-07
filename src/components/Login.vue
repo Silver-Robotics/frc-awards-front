@@ -8,7 +8,6 @@
           <v-card-text>
             <Form :validation-schema="schema" @submit="login">
               <v-row>
-                <!-- Usuário -->
                 <v-col cols="12">
                   <Field
                     name="userName"
@@ -24,7 +23,6 @@
                   </ErrorMessage>
                 </v-col>
 
-                <!-- Senha -->
                 <v-col cols="12">
                   <Field
                     name="password"
@@ -57,62 +55,46 @@
   </v-container>
 </template>
 
-<script>
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useApi } from "@/composables/useApi";
 
-export default {
-  components: { Form, Field, ErrorMessage },
-  data() {
-    return {
-      userName: "",
-      password: "",
-      // Ajuste seu domínio conforme antes
-      serverDomain: window.location.host.includes("localhost")
-        ? process.env.VUE_APP_SERVER_DOMAIN
-        : process.env.VUE_APP_SERVER_DOMAIN,
-      schema: yup.object({
-        userName: yup.string().required("Nome do Usuário não pode ser vazio"),
-        password: yup.string().required("Senha não pode ser vazia"),
-      }),
-    };
-  },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    return { store, router };
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await fetch(`${this.serverDomain}/users/login`, {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userName: this.userName,
-            password: this.password,
-          }),
-        });
+const router = useRouter();
+const { apiRequest } = useApi();
 
-        const data = await response.json();
+const userName = ref("");
+const password = ref("");
 
-        if (data.status === "success") {
-          this.store.commit("updateUser", data.user);
-          this.router.push("/listTeams");
-        } else {
-          throw new Error(data.message || "Erro ao logar");
-        }
-      } catch (err) {
-        alert(err.message); // pode trocar por v-dialog se quiser
-      } finally {
-        this.userName = "";
-        this.password = "";
-      }
-    },
-  },
+const schema = yup.object({
+  userName: yup.string().required("Nome do Usuário não pode ser vazio"),
+  password: yup.string().required("Senha não pode ser vazia"),
+});
+
+const login = async () => {
+  try {
+    const data = await apiRequest(
+      "users/login",
+      {
+        method: "POST",
+        body: JSON.stringify({ userName: userName.value, password: password.value }),
+      },
+      false // no Auth0 token needed for login
+    );
+
+    if (data?.status === "success") {
+      router.push("/listTeams");
+    } else {
+      throw new Error(data?.message || "Erro ao logar");
+    }
+  } catch (err) {
+    alert(err.message);
+  } finally {
+    userName.value = "";
+    password.value = "";
+  }
 };
 </script>
 
