@@ -22,7 +22,7 @@
         </v-list-item>
 
         <div class="drawer-logo">
-          <v-img v-if="event?.program == 'frc'" max-width="100" :src="require('./assets/logo_frc.png')" />
+          <v-img v-if="event?.program == 'frc'" max-width="140" :src="require('./assets/logo_frc_biocore_drawer.png')" />
           <v-img v-else max-width="100" :src="require('./assets/logo_ftc.png')" />
         </div>
       </v-list>
@@ -33,7 +33,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
       <v-toolbar-title v-if="event?.program == 'frc'">
-        <v-img src="@/assets/logo_text.png" alt="FRC-Rebuilt" max-height="40" max-width="300" contain />
+        <v-img src="@/assets/logo_frc_biocore_wordmark.png" alt="FRC BioCore" max-height="38" max-width="280" contain />
       </v-toolbar-title>
       <v-toolbar-title v-else>
         <v-img src="@/assets/logo_text_ftc.png" alt="FTC-Decode" max-height="40" max-width="300" contain />
@@ -71,7 +71,7 @@
     <!-- Footer -->
     <v-footer app color="#007FBC">
       <span class="white--text">{{ $t('app.copyright') }}</span>
-      <v-img src="@/assets/first_age_logo.png" alt="FRC-Reefscape" max-height="40" max-width="300" contain />
+      <v-img src="@/assets/logo_frc_biocore_wordmark_white.png" alt="FRC BioCore" max-height="36" max-width="260" contain />
     </v-footer>
   </v-app>
 </template>
