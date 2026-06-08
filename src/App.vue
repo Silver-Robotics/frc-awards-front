@@ -9,7 +9,7 @@
           :to="item.route"
         >
           <template v-slot:prepend>
-            <v-icon :icon="item.icon" color="#F7E326" />
+            <v-icon :icon="item.icon" color="#007FBC" />
           </template>
           <v-list-item-title>{{ item.name }}</v-list-item-title>
         </v-list-item>
