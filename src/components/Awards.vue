@@ -100,7 +100,7 @@
         <v-card-actions class="flex-column">
           <v-btn
             v-if="!isFTC"
-            color="#F9A825"
+            color="#F7E326"
             text
             @click="toggleNomination(currentTeam, currentAward.name)"
           >
@@ -109,14 +109,14 @@
 
           <v-btn
             v-if="isFTC"
-            color="#F9A825"
+            color="#F7E326"
             text
             @click="toggleAward(currentTeam, currentAward.name)"
           >
             {{ currentTeam.awarded ? $t('awards.dialog.removeAward') : $t('awards.dialog.giveAward') }}
           </v-btn>
 
-          <v-btn color="#F9A825" text @click="deleteAward(currentTeam, currentAward.name)">
+          <v-btn color="#F7E326" text @click="deleteAward(currentTeam, currentAward.name)">
             {{ $t('awards.dialog.delete') }}
           </v-btn>
         </v-card-actions>
@@ -203,7 +203,7 @@ const deleteAward = async (team, award) => {
 
 <style scoped>
 .card-title {
-  background-color: #f7ca5f;
+  background-color: #F7E326;
   display: flex;
   justify-content: space-between;
 }
@@ -215,11 +215,11 @@ const deleteAward = async (team, award) => {
 }
 
 .tile:hover {
-  background: #92dbac;
+  background: #BFDAE6;
 }
 
 .winner {
-  background: #ffd740;
+  background: #F7E326;
 }
 
 .alreadyAwarded {

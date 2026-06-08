@@ -10,7 +10,7 @@
     <!-- Event banner -->
     <v-card
       v-if="event"
-      color="#598290"
+      color="#007FBC"
       class="mx-auto"
       prepend-icon="mdi-robot"
       :subtitle="event.location"
@@ -114,7 +114,7 @@ watch(() => eventStore.selectedEvent, fetchEvent, { immediate: true });
 
 <style scoped>
 .v-data-table tbody tr:hover {
-  background-color: #e0f7fa !important;
+  background-color: #BFDAE6 !important;
   cursor: pointer;
 }
 </style>

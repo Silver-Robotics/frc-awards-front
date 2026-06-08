@@ -52,19 +52,19 @@
               <td>{{ item.value }}</td>
               <td class="text-center">
                 <v-checkbox
-                  hide-details density="compact" color="#1E5AA8"
+                  hide-details density="compact" color="#007FBC"
                   v-model="item.visitedTA" @change="visitChange(item, 'visitedTA')"
                 />
               </td>
               <td class="text-center">
                 <v-checkbox
-                  hide-details density="compact" color="#1E5AA8"
+                  hide-details density="compact" color="#007FBC"
                   v-model="item.visitedMCI" @change="visitChange(item, 'visitedMCI')"
                 />
               </td>
               <td class="text-center">
                 <v-checkbox
-                  hide-details density="compact" color="#1E5AA8"
+                  hide-details density="compact" color="#007FBC"
                   v-model="item.visitedExtra" @change="visitChange(item, 'visitedExtra')"
                 />
               </td>
@@ -112,7 +112,7 @@ const visitChange = async (item, visitType) => {
 
 <style scoped>
 tr:hover {
-  background-color: #e3f2fd;
+  background-color: #BFDAE6;
   transition: 0.2s;
 }
 </style>

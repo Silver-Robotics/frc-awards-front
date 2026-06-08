@@ -38,7 +38,7 @@
       <v-row justify="center" class="mt-4">
         <v-btn
           @click="addPhoto"
-          color="#1E5AA8"
+          color="#007FBC"
           variant="outlined"
           elevation="4"
           :disabled="!canSubmit"

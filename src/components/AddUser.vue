@@ -57,7 +57,7 @@
           </v-col>
         </v-row>
 
-        <v-btn type="submit" color="#1E5AA8" depressed outlined :disabled="!isValid">
+        <v-btn type="submit" color="#007FBC" depressed outlined :disabled="!isValid">
           {{ $t('addUser.submit') }}
         </v-btn>
       </form>

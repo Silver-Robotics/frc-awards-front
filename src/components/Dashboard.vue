@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-tabs v-model="activeTab" background-color="#598290" dark>
+    <v-tabs v-model="activeTab" background-color="#007FBC" dark>
       <v-tab value="init">{{ $t('dashboard.tabs.initialization') }}</v-tab>
       <v-tab value="judges">{{ $t('dashboard.tabs.judges') }}</v-tab>
     </v-tabs>
@@ -29,7 +29,7 @@
 
         <v-btn
           class="add-button"
-          color="#598290"
+          color="#007FBC"
           variant="outlined"
           elevation="3"
           @click="startEvent"
@@ -84,7 +84,7 @@
 
             <v-btn
               class="add-button-judge"
-              color="#598290"
+              color="#007FBC"
               variant="outlined"
               elevation="3"
               @click="addJudge"
@@ -182,12 +182,12 @@ watch(
   font-weight: 500;
   font-size: 1.1rem;
   transition: all 0.25s ease;
-  border-color: #1e5aa8;
-  color: #1e5aa8;
+  border-color: #007FBC;
+  color: #007FBC;
 }
 
 .add-button:hover {
-  background-color: #1e5aa8;
+  background-color: #007FBC;
   color: white;
   transform: scale(1.03);
 }
@@ -197,8 +197,8 @@ watch(
   font-weight: 500;
   font-size: 1.1rem;
   transition: all 0.25s ease;
-  border-color: #1e5aa8;
-  color: #b2ebf2;
+  border-color: #007FBC;
+  color: #BFDAE6;
   margin-left: 2rem;
 }
 

@@ -75,7 +75,7 @@
           <v-col cols="12" md="4">
             <v-btn
               @click="indicaTime"
-              color="#1E5AA8"
+              color="#007FBC"
               depressed
               elevation="5"
               outlined

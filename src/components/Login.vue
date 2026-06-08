@@ -42,7 +42,7 @@
 
               <v-row>
                 <v-col cols="12">
-                  <v-btn color="#68C3E2" type="submit" class="ma-2" block>
+                  <v-btn color="#007FBC" type="submit" class="ma-2" block>
                     {{ $t('login.submit') }}
                   </v-btn>
                 </v-col>

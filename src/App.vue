@@ -9,7 +9,7 @@
           :to="item.route"
         >
           <template v-slot:prepend>
-            <v-icon :icon="item.icon" color="#C38C26" />
+            <v-icon :icon="item.icon" color="#F7E326" />
           </template>
           <v-list-item-title>{{ item.name }}</v-list-item-title>
         </v-list-item>
@@ -29,7 +29,7 @@
     </v-navigation-drawer>
 
     <!-- App Bar -->
-    <v-app-bar app :color="event?.program == 'frc' ? '#e5ae32' : '#92dbac'" dark>
+    <v-app-bar app :color="event?.program == 'frc' ? '#F7E326' : '#92dbac'" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
       <v-toolbar-title v-if="event?.program == 'frc'">
@@ -47,7 +47,7 @@
         :label="$t('app.selectEvent')"
         variant="solo-filled"
         class="combo-event"
-        :bg-color="event?.program == 'frc' ? '#b3e5fc' : '#ffcc80'"
+        :bg-color="event?.program == 'frc' ? '#BFDAE6' : '#ffcc80'"
       />
 
       <v-spacer />
@@ -69,7 +69,7 @@
     </v-main>
 
     <!-- Footer -->
-    <v-footer app color="#598290">
+    <v-footer app color="#007FBC">
       <span class="white--text">{{ $t('app.copyright') }}</span>
       <v-img src="@/assets/first_age_logo.png" alt="FRC-Reefscape" max-height="40" max-width="300" contain />
     </v-footer>

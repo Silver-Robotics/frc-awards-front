@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="700" color="#6CBEDC" shaped>
+  <v-card class="mx-auto" max-width="700" color="#7CAEC6" shaped>
     <v-list-item three-line>
       <v-list-item-content>
         <v-list-item-title class="headline mb-1">{{
