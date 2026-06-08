@@ -138,7 +138,24 @@
   "dashboard": {
     "tabs": {
       "initialization": "Inicialização",
-      "judges": "Juízes"
+      "judges": "Juízes",
+      "pairs": "Duplas"
+    },
+    "pairs": {
+      "newPair": "Nova Dupla",
+      "distribute": "Distribuir Times",
+      "clearTeams": "Limpar Times",
+      "availableJudges": "Juízes disponíveis",
+      "allAssigned": "todos alocados",
+      "noPairs": "Crie uma dupla para começar a distribuição.",
+      "pair": "Dupla",
+      "judges": "Juízes",
+      "teamsLabel": "Times",
+      "addJudge": "Adicionar juiz",
+      "addTeam": "Adicionar time",
+      "noJudgesAvailable": "Nenhum juiz disponível",
+      "noTeamsYet": "Nenhum time alocado ainda",
+      "sum": "Soma dos números"
     },
     "fields": {
       "eventCode": "Código do Evento",

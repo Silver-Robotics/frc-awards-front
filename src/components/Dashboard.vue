@@ -3,10 +3,12 @@
     <v-tabs v-model="activeTab" background-color="#007FBC" dark>
       <v-tab value="init">{{ $t('dashboard.tabs.initialization') }}</v-tab>
       <v-tab value="judges">{{ $t('dashboard.tabs.judges') }}</v-tab>
+      <v-tab value="pairs">{{ $t('dashboard.tabs.pairs') }}</v-tab>
     </v-tabs>
 
     <div class="tab-content">
-      <!-- Event initialisation tab -->
+
+      <!-- ── Event initialisation ── -->
       <div v-if="activeTab === 'init'">
         <v-text-field
           autocomplete="off"
@@ -39,7 +41,7 @@
         </v-btn>
       </div>
 
-      <!-- Judge management tab -->
+      <!-- ── Judge management ── -->
       <div v-else-if="activeTab === 'judges'">
         <v-row class="align-start" no-gutters>
           <!-- Judge list -->
@@ -59,9 +61,7 @@
                   <template v-slot:prepend>
                     <v-icon icon="mdi-account-supervisor" />
                   </template>
-
                   <v-list-item-title>{{ judge.judgeName }}</v-list-item-title>
-
                   <template v-slot:append>
                     <v-btn class="delete-btn" icon="mdi-delete-outline" variant="text" />
                   </template>
@@ -81,7 +81,6 @@
               prepend-icon="mdi-account-multiple-check"
               variant="solo-filled"
             />
-
             <v-btn
               class="add-button-judge"
               color="#007FBC"
@@ -96,6 +95,12 @@
           </v-col>
         </v-row>
       </div>
+
+      <!-- ── Pairs & team distribution ── -->
+      <div v-else-if="activeTab === 'pairs'">
+        <PairsManager :judges="judges" />
+      </div>
+
     </div>
   </v-container>
 </template>
@@ -104,6 +109,7 @@
 import { ref, watch } from "vue";
 import { useApi } from "@/composables/useApi";
 import { useEventStore } from "@/stores/eventStore";
+import PairsManager from "./PairsManager.vue";
 
 const { apiRequest } = useApi();
 const eventStore = useEventStore();

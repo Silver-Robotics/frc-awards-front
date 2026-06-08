@@ -138,7 +138,24 @@
   "dashboard": {
     "tabs": {
       "initialization": "Inicialización",
-      "judges": "Jueces"
+      "judges": "Jueces",
+      "pairs": "Parejas"
+    },
+    "pairs": {
+      "newPair": "Nueva pareja",
+      "distribute": "Distribuir equipos",
+      "clearTeams": "Limpiar equipos",
+      "availableJudges": "Jueces disponibles",
+      "allAssigned": "todos asignados",
+      "noPairs": "Crea una pareja para comenzar a distribuir equipos.",
+      "pair": "Pareja",
+      "judges": "Jueces",
+      "teamsLabel": "Equipos",
+      "addJudge": "Agregar juez",
+      "addTeam": "Agregar equipo",
+      "noJudgesAvailable": "No hay jueces disponibles",
+      "noTeamsYet": "Ningún equipo asignado aún",
+      "sum": "Suma de números de equipo"
     },
     "fields": {
       "eventCode": "Código del evento",

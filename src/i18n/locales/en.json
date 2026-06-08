@@ -138,7 +138,24 @@
   "dashboard": {
     "tabs": {
       "initialization": "Initialization",
-      "judges": "Judges"
+      "judges": "Judges",
+      "pairs": "Pairs"
+    },
+    "pairs": {
+      "newPair": "New Pair",
+      "distribute": "Distribute Teams",
+      "clearTeams": "Clear Teams",
+      "availableJudges": "Available judges",
+      "allAssigned": "all assigned",
+      "noPairs": "Create a pair to start distributing teams.",
+      "pair": "Pair",
+      "judges": "Judges",
+      "teamsLabel": "Teams",
+      "addJudge": "Add judge",
+      "addTeam": "Add team",
+      "noJudgesAvailable": "No judges available",
+      "noTeamsYet": "No teams assigned yet",
+      "sum": "Sum of team numbers"
     },
     "fields": {
       "eventCode": "Event Code",
