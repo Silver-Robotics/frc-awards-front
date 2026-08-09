@@ -158,7 +158,7 @@
         <v-card-text class="pt-4 pb-2">
           <!-- Description -->
           <p class="text-body-2 mb-4" style="line-height:1.65; color:rgba(0,0,0,0.82)">
-            {{ infoData.description }}
+            {{ infoDescription }}
           </p>
 
           <!-- Criteria section -->
@@ -168,7 +168,7 @@
           </div>
           <div class="criteria-list">
             <div
-              v-for="(criterion, i) in infoData.criteria"
+              v-for="(criterion, i) in infoCriteria"
               :key="i"
               class="criteria-row"
             >
@@ -291,6 +291,7 @@
 
 <script setup>
 import { ref, computed, reactive } from "vue";
+import { useI18n } from "vue-i18n";
 import { useAuth0 } from "@auth0/auth0-vue";
 import { useApi } from "@/composables/useApi";
 import { useEventStore } from "@/stores/eventStore";
@@ -303,6 +304,7 @@ import draggable from "vuedraggable";
 const { apiRequest } = useApi();
 const eventStore = useEventStore();
 const { user } = useAuth0();
+const { t, tm, te } = useI18n();
 
 const isFTC = computed(() => eventStore.selectedEvent?.program === "ftc");
 const isAdmin = computed(() =>
@@ -355,6 +357,20 @@ const infoAward  = ref(null);
 const infoData   = computed(() =>
   infoAward.value?.name ? AWARD_INFO[infoAward.value.name] ?? null : null
 );
+
+const infoSlug = computed(() =>
+  infoAward.value?.name
+    ? infoAward.value.name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/, "")
+    : null
+);
+const infoDescription = computed(() => {
+  const key = infoSlug.value ? `awardDescriptions.${infoSlug.value}.description` : null;
+  return key && te(key) ? t(key) : (infoData.value?.description ?? "");
+});
+const infoCriteria = computed(() => {
+  const key = infoSlug.value ? `awardDescriptions.${infoSlug.value}.criteria` : null;
+  return key && te(key) ? tm(key) : (infoData.value?.criteria ?? []);
+});
 
 const editForm = reactive({ awardName: "", motive: "" });
 

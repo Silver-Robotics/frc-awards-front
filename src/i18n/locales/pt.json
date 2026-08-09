@@ -285,5 +285,128 @@
     "httpError": "Erro {status}: {statusText}",
     "communicationFailed": "Falha na comunicação: {message}",
     "unauthorized": "Usuário não autorizado (401)"
+  },
+  "awardDescriptions": {
+    "autonomous": {
+      "description": "Celebra a equipe cuja máquina demonstrou operação robótica consistente, confiável e de alto desempenho durante as ações autônomas (sem operação humana) nas partidas. A avaliação foca na capacidade do robô de perceber o ambiente, posicionar-se corretamente e executar tarefas.",
+      "criteria": [
+        "A equipe consegue descrever como o robô percebe o ambiente e executa tarefas de forma autônoma",
+        "Operação consistente e confiável tem mais peso do que a pontuação máxima",
+        "Aplica-se tanto aos 15 segundos iniciais quanto às ações autônomas durante o teleop"
+      ]
+    },
+    "creativity": {
+      "description": "Celebra um componente, conceito ou atributo criativo do robô que melhora a estratégia de jogo da equipe — algo intencionalmente projetado, não descoberto por acidente.",
+      "criteria": [
+        "A equipe consegue rastrear a concepção e o design do recurso criativo",
+        "O elemento é único e tem uma contribuição prática para os objetivos da competição",
+        "A equipe consegue descrever como mitigou o risco inerente de falha",
+        "Quando funciona como projetado, contribui diretamente para o sucesso no campo"
+      ]
+    },
+    "excellence_in_engineering": {
+      "description": "Celebra a equipe cuja máquina incorpora uma solução de engenharia projetada para que os componentes trabalhem juntos de forma integrada.",
+      "criteria": [
+        "A equipe consegue descrever os problemas identificados e como a máquina os resolve",
+        "O processo de engenharia pode ser rastreado desde a concepção até a conclusão",
+        "A solução é funcional, prática e não criou novos problemas",
+        "A solução de engenharia contribui para o sucesso da equipe no campo"
+      ]
+    },
+    "industrial_design": {
+      "description": "Celebra a equipe cuja máquina demonstra princípios de design industrial, equilibrando forma, função e estética.",
+      "criteria": [
+        "A equipe consegue descrever como o design da máquina é elegante, eficiente e prático",
+        "A máquina inteira — não apenas um componente — merece reconhecimento",
+        "O robô se destaca por sua estética, design e desempenho"
+      ]
+    },
+    "innovation_in_control": {
+      "description": "Celebra um sistema de controle inovador ou aplicação de componentes de controle — elétricos, mecânicos ou de software — que fornecem funções únicas à máquina.",
+      "criteria": [
+        "A equipe consegue rastrear a concepção, design, fabricação ou implantação da inovação de controle",
+        "O sistema de controle é inovador, único e integrado com a máquina e os operadores",
+        "A inovação é prática, aborda o desafio do jogo e é confiável sob o estresse da competição"
+      ]
+    },
+    "quality": {
+      "description": "Celebra a robustez da máquina em conceito e fabricação.",
+      "criteria": [
+        "A equipe consegue descrever seu plano de qualidade e como ele garante robustez durante toda a competição",
+        "A máquina inteira demonstra qualidade: acabamento, soldas, fiação, pintura, etc.",
+        "A máquina suporta os rigores da competição por meio de redundância projetada e mitigação de riscos",
+        "A qualidade de construção contribui diretamente para o sucesso da equipe no campo"
+      ]
+    },
+    "engineering_inspiration": {
+      "description": "Celebra uma equipe que demonstra sucesso notável em promover o respeito e a valorização da engenharia em sua escola, organização e comunidade.",
+      "criteria": [
+        "Extensão e criatividade dos esforços para atrair estudantes para engenharia ou áreas STEM",
+        "Eficácia do engajamento comunitário e comprometimento com a educação científica e tecnológica",
+        "Realização da missão FIRST comunicada tanto na competição quanto fora dela",
+        "Os esforços são contínuos — não concentrados apenas na temporada de construção e competição"
+      ]
+    },
+    "gracious_professionalism": {
+      "description": "Celebra a demonstração excepcional dos Valores Fundamentais FIRST — incluindo Profissionalismo Gracioso contínuo, esportividade e colaboração dentro e fora do campo.",
+      "criteria": [
+        "A equipe exemplifica os Valores Fundamentais FIRST nas relações com outras equipes",
+        "Profissionalismo Gracioso consistente e atitude positiva dentro e fora do campo",
+        "Se colaboraram antes da temporada: conseguem descrever como as tarefas foram divididas de forma justa e como a comunicação fluiu",
+        "Conseguem explicar como trabalhar juntos foi benéfico em comparação a trabalhar de forma independente"
+      ]
+    },
+    "imagery": {
+      "description": "Celebra a atratividade na engenharia e a excelente integração visual estética entre a aparência da máquina e da equipe.",
+      "criteria": [
+        "A equipe consegue descrever seu tema e suas origens",
+        "O tema é original e adequado aos objetivos, caráter e/ou história da equipe",
+        "O tema está incorporado em todos os aspectos: uniformes, estande, máquina, mascote, etc.",
+        "Os visuais da equipe/máquina integrados são excepcionais e atraentes",
+        "O tema da equipe apoia os princípios dos Valores Fundamentais FIRST"
+      ]
+    },
+    "judges": {
+      "description": "Durante a competição, o painel de juízes pode decidir que os esforços únicos, o desempenho ou a dinâmica de uma equipe merecem reconhecimento especial não coberto pelos critérios de outros prêmios.",
+      "criteria": [
+        "A equipe abraçou plenamente os princípios do FIRST",
+        "Múltiplos juízes notaram e comentaram sobre os aspectos positivos da equipe",
+        "A equipe exemplifica um atributo positivo não abordado pelos critérios de nenhum outro prêmio"
+      ]
+    },
+    "rising_all_star": {
+      "description": "Celebra a equipe que persistiu diante dos desafios apesar das dificuldades de ser jovem — seja uma equipe nova ou uma com renovação significativa recente de membros.",
+      "criteria": [
+        "A equipe entende a missão FIRST e demonstra Profissionalismo Gracioso e Coopertition",
+        "A equipe é um modelo para outras equipes jovens e se destaca por ter um futuro promissor e sustentável",
+        "Reconhece equipes novas ou com novos começos — não exige status de primeiro ano",
+        "Equipes em seu segundo ou terceiro ano que tiveram sucesso apesar dos desafios também são elegíveis"
+      ]
+    },
+    "rookie_all_star": {
+      "description": "Celebra a equipe estreante que exemplifica um esforço de parceria jovem mas forte, além de implementar a missão FIRST de inspirar estudantes a aprender mais sobre ciência e tecnologia.",
+      "criteria": [
+        "A equipe parece uma 'equipe do Prêmio FIRST Impact em formação' — liderança, visão, espírito, atividades comunitárias",
+        "Verdadeira parceria entre escola/organização e patrocinadores",
+        "A equipe entende o que o FIRST está realmente tentando realizar e tem uma visão de futuro com ele",
+        "A equipe construiu um robô adequado aos desafios do jogo"
+      ]
+    },
+    "team_spirit": {
+      "description": "Celebra o entusiasmo e espírito extraordinários por meio de parceria e trabalho em equipe excepcionais, promovendo os objetivos do FIRST.",
+      "criteria": [
+        "A equipe exibe entusiasmo evidente ao apoiar outras equipes, em sua aparência e nas interações na competição",
+        "O espírito é evidente em tudo que fazem — na escola, na comunidade, com patrocinadores e outras equipes",
+        "Demonstram espírito como uma equipe unida"
+      ]
+    },
+    "sustainability": {
+      "description": "Celebra uma equipe que desenvolveu práticas sustentáveis focadas em um 'triple bottom line' — Pessoas, Prosperidade e Planeta — para alcançar impacto positivo e continuidade de longo prazo.",
+      "criteria": [
+        "Pessoas: como a equipe recruta, treina e retém estudantes, mentores e patrocinadores",
+        "Prosperidade: como a equipe capta recursos, cria/acompanha orçamentos e gerencia riscos financeiros",
+        "Planeta: como a equipe avalia seu impacto ambiental e o que faz para mitigá-lo ou reduzi-lo"
+      ]
+    }
   }
 }

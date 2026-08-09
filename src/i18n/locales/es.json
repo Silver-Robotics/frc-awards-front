@@ -285,5 +285,128 @@
     "httpError": "Error {status}: {statusText}",
     "communicationFailed": "Error de comunicación: {message}",
     "unauthorized": "No autorizado (401)"
+  },
+  "awardDescriptions": {
+    "autonomous": {
+      "description": "Celebra al equipo cuyo robot demostró una operación autónoma consistente, confiable y de alto rendimiento durante las acciones no operadas en el juego. La evaluación se centra en la capacidad del robot para percibir su entorno, posicionarse correctamente y ejecutar tareas.",
+      "criteria": [
+        "El equipo puede describir cómo el robot percibe su entorno y ejecuta tareas de forma autónoma",
+        "La operación consistente y confiable tiene más peso que la puntuación máxima",
+        "Se aplica tanto a los 15 segundos iniciales como a las acciones autónomas durante el tele-op"
+      ]
+    },
+    "creativity": {
+      "description": "Celebra un componente, concepto o atributo creativo del robot que mejora la estrategia de juego del equipo — uno diseñado intencionalmente, no descubierto por accidente.",
+      "criteria": [
+        "El equipo puede rastrear la concepción y el diseño del elemento creativo",
+        "El elemento es único y tiene una contribución práctica a los objetivos de la competición",
+        "El equipo puede describir cómo mitigó el riesgo inherente de fallo",
+        "Cuando funciona como fue diseñado, contribuye directamente al éxito en el campo"
+      ]
+    },
+    "excellence_in_engineering": {
+      "description": "Celebra al equipo cuyo robot incorpora una solución de ingeniería diseñada para que los componentes trabajen juntos de forma integrada.",
+      "criteria": [
+        "El equipo puede describir los problemas identificados y cómo el robot los resuelve",
+        "El proceso de ingeniería puede trazarse desde la concepción hasta la finalización",
+        "La solución es funcional, práctica y no creó nuevos problemas",
+        "La solución de ingeniería contribuye al éxito del equipo en el campo"
+      ]
+    },
+    "industrial_design": {
+      "description": "Celebra al equipo cuyo robot demuestra principios de diseño industrial, logrando un equilibrio entre forma, función y estética.",
+      "criteria": [
+        "El equipo puede describir cómo el diseño del robot es elegante, eficiente y práctico",
+        "Todo el robot — no solo un componente — merece reconocimiento",
+        "El robot se distingue por su estética, diseño y rendimiento"
+      ]
+    },
+    "innovation_in_control": {
+      "description": "Celebra un sistema de control innovador o aplicación de componentes de control — eléctricos, mecánicos o de software — que proporcionan funciones únicas al robot.",
+      "criteria": [
+        "El equipo puede rastrear la concepción, diseño, fabricación o implementación de la innovación de control",
+        "El sistema de control es innovador, único e integrado con el robot y los operadores",
+        "La innovación es práctica, aborda el desafío del juego y es confiable bajo el estrés de la competición"
+      ]
+    },
+    "quality": {
+      "description": "Celebra la robustez del robot en concepto y fabricación.",
+      "criteria": [
+        "El equipo puede describir su plan de calidad y cómo garantiza la robustez durante toda la competición",
+        "Todo el robot demuestra calidad: acabado, soldaduras, cableado, pintura, etc.",
+        "El robot puede soportar el rigor de la competición mediante redundancia diseñada y mitigación de riesgos",
+        "La calidad de construcción contribuye directamente al éxito del equipo en el campo"
+      ]
+    },
+    "engineering_inspiration": {
+      "description": "Celebra a un equipo que demuestra un éxito sobresaliente en promover el respeto y la valoración de la ingeniería en su escuela, organización y comunidad.",
+      "criteria": [
+        "Alcance e inventiva de los esfuerzos para reclutar estudiantes a ingeniería o campos STEM",
+        "Efectividad del alcance comunitario y compromiso con la educación en ciencia y tecnología",
+        "Logro de la misión FIRST comunicado tanto en la competición como fuera de ella",
+        "Los esfuerzos son continuos — no concentrados estrictamente en la temporada de construcción y competición"
+      ]
+    },
+    "gracious_professionalism": {
+      "description": "Celebra la demostración sobresaliente de los Valores Fundamentales FIRST — incluyendo Profesionalismo Cortés continuo, deportividad y trabajo conjunto dentro y fuera del campo.",
+      "criteria": [
+        "El equipo ejemplifica los Valores Fundamentales FIRST en sus relaciones con otros equipos",
+        "Profesionalismo Cortés consistente y actitud positiva dentro y fuera del campo",
+        "Si colaboraron antes de la temporada: pueden describir cómo se dividieron las tareas equitativamente y cómo fluyó la comunicación",
+        "Pueden explicar cómo trabajar juntos fue beneficioso en comparación con trabajar de forma independiente"
+      ]
+    },
+    "imagery": {
+      "description": "Celebra el atractivo en la ingeniería y la excepcional integración visual estética entre la apariencia del robot y del equipo.",
+      "criteria": [
+        "El equipo puede describir su tema y sus orígenes",
+        "El tema es original y apropiado para los objetivos, carácter y/o historia del equipo",
+        "El tema está incorporado en todos los aspectos: uniformes, pit, robot, mascota, etc.",
+        "Las imágenes del equipo/robot integrado son excepcionales y atractivas",
+        "El tema del equipo apoya los principios de los Valores Fundamentales FIRST"
+      ]
+    },
+    "judges": {
+      "description": "Durante la competición, el panel de jueces puede decidir que los esfuerzos únicos, el rendimiento o la dinámica de un equipo merecen un reconocimiento especial no cubierto por los criterios de otros premios.",
+      "criteria": [
+        "El equipo ha adoptado plenamente los principios de FIRST",
+        "Múltiples jueces han notado y comentado los aspectos positivos del equipo",
+        "El equipo ejemplifica un atributo positivo no abordado por los criterios de ningún otro premio"
+      ]
+    },
+    "rising_all_star": {
+      "description": "Celebra al equipo que ha persistido ante los desafíos a pesar de las dificultades de ser joven — ya sea un equipo nuevo o uno con una renovación significativa reciente de miembros.",
+      "criteria": [
+        "El equipo entiende la misión FIRST y demuestra Profesionalismo Cortés y Coopertition",
+        "El equipo es un modelo para otros equipos jóvenes y se destaca por tener un futuro prometedor y sostenible",
+        "Reconoce equipos nuevos o con nuevos comienzos — no requiere el estatus de primer año",
+        "Los equipos en su segundo o tercer año que tuvieron éxito a pesar de los desafíos también son elegibles"
+      ]
+    },
+    "rookie_all_star": {
+      "description": "Celebra al equipo novato que ejemplifica un esfuerzo de asociación joven pero fuerte, además de implementar la misión FIRST de inspirar a los estudiantes a aprender más sobre ciencia y tecnología.",
+      "criteria": [
+        "El equipo parece un 'equipo del Premio FIRST Impact en formación' — liderazgo, visión, espíritu, actividades comunitarias",
+        "Verdadera asociación entre escuela/organización y patrocinadores",
+        "El equipo entiende lo que FIRST está realmente tratando de lograr y tiene una visión de futuro con él",
+        "El equipo ha construido un robot adecuado a los desafíos del juego"
+      ]
+    },
+    "team_spirit": {
+      "description": "Celebra el entusiasmo y espíritu extraordinarios mediante una asociación y trabajo en equipo excepcionales que promueven los objetivos de FIRST.",
+      "criteria": [
+        "El equipo muestra un entusiasmo evidente al apoyar a otros equipos, en su apariencia e interacciones en la competición",
+        "El espíritu es evidente en todo lo que hacen — en la escuela, en su comunidad, con patrocinadores y otros equipos",
+        "Demuestran espíritu como un equipo unido"
+      ]
+    },
+    "sustainability": {
+      "description": "Celebra a un equipo que ha desarrollado prácticas sostenibles enfocadas en una 'triple cuenta de resultados' — Personas, Prosperidad y Planeta — para lograr un impacto positivo y continuidad a largo plazo.",
+      "criteria": [
+        "Personas: cómo el equipo recluta, entrena y retiene estudiantes, mentores y patrocinadores",
+        "Prosperidad: cómo el equipo recauda fondos, crea/gestiona presupuestos y administra riesgos financieros",
+        "Planeta: cómo el equipo evalúa su impacto ambiental y qué hace para mitigarlo o reducirlo"
+      ]
+    }
   }
 }
