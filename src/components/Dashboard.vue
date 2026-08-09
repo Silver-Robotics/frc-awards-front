@@ -5,6 +5,7 @@
       <v-tab value="judges">{{ $t('dashboard.tabs.judges') }}</v-tab>
       <v-tab value="pairs">{{ $t('dashboard.tabs.pairs') }}</v-tab>
       <v-tab value="day2">{{ $t('dashboard.tabs.day2') }}</v-tab>
+      <v-tab value="impact">{{ $t('dashboard.tabs.impact') }}</v-tab>
     </v-tabs>
 
     <div class="tab-content">
@@ -57,6 +58,11 @@
         <Day2Matrix />
       </div>
 
+      <!-- ── Impact Award interview schedule ── -->
+      <div v-else-if="activeTab === 'impact'">
+        <ImpactSchedule />
+      </div>
+
     </div>
   </v-container>
 </template>
@@ -64,9 +70,10 @@
 <script setup>
 import { ref } from "vue";
 import { useApi } from "@/composables/useApi";
-import JudgesManager from "./JudgesManager.vue";
-import PairsManager  from "./PairsManager.vue";
-import Day2Matrix    from "./Day2Matrix.vue";
+import JudgesManager  from "./JudgesManager.vue";
+import PairsManager   from "./PairsManager.vue";
+import Day2Matrix     from "./Day2Matrix.vue";
+import ImpactSchedule from "./ImpactSchedule.vue";
 
 const { apiRequest } = useApi();
 
