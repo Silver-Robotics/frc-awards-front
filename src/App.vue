@@ -22,7 +22,7 @@
         </v-list-item>
 
         <div class="drawer-logo">
-          <v-img v-if="event?.program == 'frc'" max-width="140" :src="require('./assets/logo_frc_biocore_drawer.png')" />
+          <v-img v-if="event?.program == 'frc'" max-width="160" :src="require('./assets/logo_frc_biocore_vertical.png')" />
           <v-img v-else max-width="100" :src="require('./assets/logo_ftc.png')" />
         </div>
       </v-list>
@@ -33,7 +33,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
       <v-toolbar-title v-if="event?.program == 'frc'">
-        <v-img src="@/assets/logo_frc_biocore_wordmark.png" alt="FRC BioCore" max-height="38" max-width="280" contain />
+        <v-img src="@/assets/logo_canopy.png" alt="FIRST Canopy" max-height="48" max-width="200" contain />
       </v-toolbar-title>
       <v-toolbar-title v-else>
         <v-img src="@/assets/logo_text_ftc.png" alt="FTC-Decode" max-height="40" max-width="300" contain />
@@ -141,6 +141,8 @@ const menuItems = computed(() => [
   { key: "nonNominated", name: t("app.menu.nonNominated"), icon: "mdi-clipboard",            route: "/non-nominated" },
   { key: "visits",       name: t("app.menu.visits"),       icon: "mdi-door-open",            route: "/visits" },
   { key: "awards",       name: t("app.menu.awards"),       icon: "mdi-trophy-award",         route: "/awards" },
+  { key: "day2",         name: t("app.menu.day2"),         icon: "mdi-calendar-clock",       route: "/day2" },
+  { key: "scripts",     name: t("app.menu.scripts"),     icon: "mdi-script-text-outline",  route: "/scripts" },
 ]);
 
 const allowedMenuItems = computed(() => {

@@ -39,7 +39,9 @@ import BulkAddTeam from './components/BulkAddTeam.vue'
 import NonNominated from './components/NonNominated.vue'
 import Visits from './components/Visits.vue'
 import AddPicture from './components/AddPicture.vue'
-import Dashboard from './components/Dashboard.vue'
+import Dashboard     from './components/Dashboard.vue'
+import Day2Briefing  from './components/Day2Briefing.vue'
+import Scripts       from './components/Scripts.vue'
 
 // ---------- Vuetify instance ----------
 const vuetify = createVuetify({
@@ -65,6 +67,8 @@ const routes = [
   { path: '/listTeams',     name: 'ListTeams',     component: ListTeams },
   { path: '/adicionar-foto',name: 'AddPhoto',      component: AddPicture },
   { path: '/dashboard',     name: 'Dashboard',     component: Dashboard },
+  { path: '/day2',          name: 'Day2Briefing',  component: Day2Briefing },
+  { path: '/scripts',       name: 'Scripts',       component: Scripts },
   { path: '/adduser',       name: 'AddUser',       component: AddUser },
   { path: '/:pathMatch(.*)*', redirect: '/listTeams' },
 ]

@@ -4,7 +4,7 @@
       <v-card elevation="2" class="pa-4">
         <v-card-title class="text-h6 font-weight-bold">{{ $t('nominateTeam.title') }}</v-card-title>
 
-        <!-- Loading skeleton -->
+        <!-- Loading skeleton (data fetch) -->
         <v-skeleton-loader v-if="loading" class="mx-auto mt-6 pa-4" type="card" elevation="2">
           <template #default>
             <v-card flat class="pa-4">
@@ -42,13 +42,47 @@
           </v-col>
 
           <v-col cols="12" md="4">
-            <v-combobox
+            <v-autocomplete
               v-model="room"
-              :items="isFTC ? salasFTC : salasFRC"
+              :items="pairOptions"
               item-title="text"
+              item-value="value"
+              :return-object="true"
               :label="$t('nominateTeam.fields.selectRoom')"
+              :loading="pairsLoading"
               variant="solo-filled"
-            />
+            >
+              <!-- dropdown row -->
+              <template #item="{ item, props }">
+                <v-list-item v-bind="props" :title="undefined">
+                  <div class="d-flex align-center" style="gap: 8px">
+                    <v-chip
+                      v-if="item.raw.type"
+                      size="x-small"
+                      :color="item.raw.type === 'mci' ? 'primary' : 'success'"
+                      label
+                    >
+                      {{ item.raw.type.toUpperCase() }}
+                    </v-chip>
+                    <span>{{ item.raw.text }}</span>
+                  </div>
+                </v-list-item>
+              </template>
+
+              <!-- selected value chip -->
+              <template #selection="{ item }">
+                <v-chip
+                  v-if="item.raw.type"
+                  size="x-small"
+                  :color="item.raw.type === 'mci' ? 'primary' : 'success'"
+                  label
+                  class="mr-1"
+                >
+                  {{ item.raw.type.toUpperCase() }}
+                </v-chip>
+                {{ item.raw.text }}
+              </template>
+            </v-autocomplete>
           </v-col>
         </v-row>
 
@@ -80,6 +114,7 @@
               elevation="5"
               outlined
               :disabled="!team || !award || !room || !message"
+              :loading="submitting"
             >
               {{ $t('nominateTeam.submit') }}
             </v-btn>
@@ -88,6 +123,34 @@
       </v-card>
     </v-container>
   </v-form>
+
+  <!-- ── Submission loader overlay ──────────────────────────────────────────── -->
+  <v-overlay
+    :model-value="submitting"
+    class="d-flex align-center justify-center"
+    persistent
+    z-index="9999"
+    style="backdrop-filter: blur(3px);"
+  >
+    <div class="submit-loader">
+      <div class="spinner-wrap">
+        <!-- Outer ring — FIRST yellow, clockwise -->
+        <div class="ring ring-outer" />
+        <!-- Inner ring — FIRST blue, counter-clockwise -->
+        <div class="ring ring-inner" />
+        <!-- Season logo in the centre -->
+        <div class="logo-centre">
+          <v-img
+            :src="diveLogoSrc"
+            width="64"
+            height="64"
+            contain
+          />
+        </div>
+      </div>
+      <span class="loader-label">{{ $t('nominateTeam.submitting') }}</span>
+    </div>
+  </v-overlay>
 </template>
 
 <script setup>
@@ -96,16 +159,19 @@ import { useI18n } from "vue-i18n";
 import { useApi } from "@/composables/useApi";
 import { useEventStore } from "@/stores/eventStore";
 import { useTeams } from "@/composables/useTeams";
+import { usePairs } from "@/composables/usePairs";
+import diveLogoSrc from "@/assets/logo_frc_biocore_vertical.png";
 
 const { apiRequest } = useApi();
 const { t } = useI18n();
 const eventStore = useEventStore();
 
-const team = ref(null);
-const award = ref(null);
-const room = ref(null);
-const message = ref("");
-const image = ref(null);
+const team      = ref(null);
+const award     = ref(null);
+const room      = ref(null);
+const message   = ref("");
+const image     = ref(null);
+const submitting = ref(false);
 
 // Raw teams from composable; transform for combobox display
 const { teams: rawTeams, loading } = useTeams();
@@ -119,6 +185,9 @@ const teamOptions = computed(() =>
 );
 
 const isFTC = computed(() => eventStore.selectedEvent?.program === "ftc");
+
+// Pairs from the Dashboard — replaces hardcoded room lists
+const { pairOptions, loading: pairsLoading } = usePairs();
 
 // Award names are official FIRST brand names — not translated
 const premiosFRC = [
@@ -148,25 +217,6 @@ const premiosFTC = [
   { text: "Sustain Award", value: 8, category: "AE"  },
 ];
 
-const salasFRC = [
-  { text: "Ayslan / Luiz" },
-  { text: "Antonio / JP" },
-  { text: "Leo / Beatriz" },
-  { text: "Eduardo / Carlos" },
-  { text: "Thiago / Juliane" },
-  { text: "Francisco / Erika" },
-  { text: "Arthur / Sara" },
-  { text: "Ivan / Duda" },
-];
-
-const salasFTC = [
-  { text: "Sala A" },
-  { text: "Sala B" },
-  { text: "Sala C" },
-  { text: "Sala D" },
-  { text: "Sala E" },
-];
-
 const premios = computed(() => (isFTC.value ? premiosFTC : premiosFRC));
 
 const indicaTime = async () => {
@@ -175,24 +225,94 @@ const indicaTime = async () => {
     return;
   }
 
-  const formData = new FormData();
-  formData.append("awardName", award.value.text);
-  formData.append("motive", message.value);
-  formData.append("judge", room.value.text);
-  formData.append("category", award.value.category);
-  formData.append("value", team.value.value);
-  if (image.value) formData.append("image", image.value);
+  submitting.value = true;
+  try {
+    const formData = new FormData();
+    formData.append("awardName", award.value.text);
+    formData.append("motive", message.value);
+    formData.append("judge", room.value.text);
+    formData.append("category", award.value.category);
+    formData.append("value", team.value.value);
+    if (image.value) formData.append("image", image.value);
 
-  await apiRequest("awards", {
-    method: "POST",
-    headers: { eventCode: eventStore.selectedEvent.value },
-    body: formData,
-  });
+    await apiRequest("awards", {
+      method: "POST",
+      headers: { eventCode: eventStore.selectedEvent.value },
+      body: formData,
+    });
 
-  team.value = null;
-  award.value = null;
-  room.value = null;
-  message.value = "";
-  image.value = null;
+    team.value    = null;
+    award.value   = null;
+    room.value    = null;
+    message.value = "";
+    image.value   = null;
+  } finally {
+    submitting.value = false;
+  }
 };
 </script>
+
+<style scoped>
+/* ── Submission overlay ───────────────────────────────────────────────────── */
+.submit-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.spinner-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+/* Shared ring base */
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 4px solid transparent;
+}
+
+/* Outer ring — FIRST yellow, clockwise */
+.ring-outer {
+  inset: 0;
+  border-top-color: #F7E326;
+  border-right-color: rgba(247, 227, 38, 0.35);
+  animation: spin-cw 1s linear infinite;
+}
+
+/* Inner ring — FIRST blue, counter-clockwise */
+.ring-inner {
+  inset: 16px;
+  border: 3px solid transparent;
+  border-bottom-color: #007FBC;
+  border-left-color: rgba(0, 127, 188, 0.35);
+  animation: spin-ccw 1.3s linear infinite;
+}
+
+/* Logo sits in the remaining centred space */
+.logo-centre {
+  position: absolute;
+  inset: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@keyframes spin-cw {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-ccw {
+  to { transform: rotate(-360deg); }
+}
+</style>

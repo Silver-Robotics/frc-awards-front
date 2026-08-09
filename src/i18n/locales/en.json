@@ -20,9 +20,11 @@
       "addPhoto": "Add Photo",
       "listTeams": "Team List",
       "nominateTeam": "Nominate Teams",
+      "day2": "Day 2 — Briefing",
       "nonNominated": "Non-nominated Teams",
       "visits": "Visits",
-      "awards": "Nominations"
+      "awards": "Nominations",
+      "scripts": "Scripts"
     }
   },
   "home": {
@@ -89,6 +91,9 @@
     "title": "Add Photo",
     "description": "Attach an image for the selected team.",
     "submit": "Send",
+    "currentPhoto": "Current photo",
+    "newPreview": "New photo — not saved yet",
+    "noPhoto": "No photo yet",
     "fields": {
       "selectTeam": "Select team",
       "attachImage": "Attach image"
@@ -131,6 +136,7 @@
       "justification": "Justification",
       "optionalImage": "Upload image (optional)"
     },
+    "submitting": "Submitting nomination…",
     "errors": {
       "fillAllFields": "Please fill in all fields before submitting."
     }
@@ -139,13 +145,16 @@
     "tabs": {
       "initialization": "Initialization",
       "judges": "Judges",
-      "pairs": "Pairs"
+      "pairs": "Pairs",
+      "day2": "Day 2"
     },
     "pairs": {
       "newPair": "New Pair",
       "distribute": "Distribute Teams",
       "clearTeams": "Clear Teams",
       "availableJudges": "Available judges",
+      "availableTeams": "Available teams",
+      "teamsWithout": "without assignment",
       "allAssigned": "all assigned",
       "noPairs": "Create a pair to start distributing teams.",
       "pair": "Pair",
@@ -155,7 +164,19 @@
       "addTeam": "Add team",
       "noJudgesAvailable": "No judges available",
       "noTeamsYet": "No teams assigned yet",
-      "sum": "Sum of team numbers"
+      "sum": "Sum of team numbers",
+      "awardsLabel": "Awards evaluated",
+      "roleTooltip": "Click to change Day-2 role"
+    },
+    "day2": {
+      "noPairs": "Set pair types (MCI or TA) in the Pairs tab first to use the Day-2 matrix.",
+      "machineAwards": "Machine Awards",
+      "teamAwards": "Team Awards",
+      "award": "Award",
+      "group": "Group",
+      "noJudges": "No judges",
+      "awardsCount": "awards",
+      "teamsTooltip": "Unique nominated teams (drives schedule)"
     },
     "fields": {
       "eventCode": "Event Code",
@@ -165,6 +186,10 @@
     "submit": {
       "initializeEvent": "Initialize event",
       "addJudges": "Add Judges"
+    },
+    "judges": {
+      "conflicts": "Conflicts of interest",
+      "noConflicts": "No conflicts declared"
     },
     "messages": {
       "noJudgesRegistered": "No judges registered"
@@ -183,10 +208,76 @@
       "removeConsideration": "Remove from consideration",
       "giveAward": "Award",
       "removeAward": "Remove award",
-      "delete": "Delete"
+      "delete": "Delete",
+      "edit": "Edit",
+      "editTitle": "Edit Nomination",
+      "save": "Save",
+      "cancel": "Cancel"
     },
     "special": {
       "inspireAward": "Inspire Award"
+    },
+    "infoDialog": {
+      "keyCriteria": "Key Criteria",
+      "source": "FIRST Award Workbook · Rev. Oct 2025",
+      "close": "Close"
+    },
+    "admin": {
+      "visibilityOn": "Nominations visible",
+      "visibilityOff": "Nominations hidden",
+      "conflictsOn": "Conflicts: ON",
+      "conflictsOff": "Conflicts: OFF"
+    }
+  },
+  "day2Briefing": {
+    "title": "Day 2 Briefing",
+    "reload": "Refresh",
+    "downloadPdf": "Download PDF",
+    "notConfigured": "Configure pairs (MCI/TA types), judge roles (A/B/C/D), and the Day-2 matrix in the Dashboard before using this screen.",
+    "group": "Group",
+    "machineAwards": "Machine Awards",
+    "teamAwards": "Team Awards",
+    "judges": "Judges",
+    "noJudgesAssigned": "No judges with a role assigned to this group",
+    "awardsTooltip": "Awards in this group",
+    "teamsTooltip": "Unique teams to visit (nominated only)",
+    "noNominations": "No nominations yet",
+    "noAwardsAssigned": "No awards assigned to this group yet",
+    "awards": "awards",
+    "teams": "teams"
+  },
+  "scripts": {
+    "title": "Ceremony Scripts",
+    "description": "Award ceremony scripts for winners — submit, review, and copy final texts.",
+    "noWinners": "No definitive winners yet. An award must have exactly one nominated team to appear here.",
+    "winnersCount": "winners",
+    "pendingCount": "pending",
+    "acceptedCount": "accepted",
+    "writeScript": "Write Script",
+    "submit": "Submit",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "copy": "Copy Script",
+    "copied": "Copied!",
+    "accept": "Accept",
+    "sendBack": "Send Back",
+    "by": "by",
+    "placeholder": "Write the ceremony script for this award here…",
+    "status": {
+      "pending": "Pending review",
+      "accepted": "Accepted",
+      "rejected": "Sent back for revision"
+    },
+    "impact": {
+      "name": "Impact Award",
+      "badge": "IMPACT",
+      "notAnnounced": "Winner not yet announced.",
+      "declareHint": "Enter the winning team to make the award visible to all judges.",
+      "selectTeam": "Select winning team",
+      "scriptOptional": "Script (optional — judges can submit later)",
+      "declareWinner": "Declare Winner",
+      "confirmWinner": "Confirm",
+      "noScriptYet": "Winner declared — awaiting script submission."
     }
   },
   "api": {

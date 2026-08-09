@@ -47,7 +47,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in teams" :key="item.value" style="cursor: pointer">
+            <tr v-for="item in teams" :key="item.value">
               <td>{{ item.text }}</td>
               <td>{{ item.value }}</td>
               <td class="text-center">
@@ -111,8 +111,4 @@ const visitChange = async (item, visitType) => {
 </script>
 
 <style scoped>
-tr:hover {
-  background-color: #BFDAE6;
-  transition: 0.2s;
-}
 </style>

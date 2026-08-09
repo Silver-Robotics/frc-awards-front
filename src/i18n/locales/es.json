@@ -20,9 +20,11 @@
       "addPhoto": "Agregar foto",
       "listTeams": "Lista de equipos",
       "nominateTeam": "Nominar equipos",
+      "day2": "Día 2 — Briefing",
       "nonNominated": "Equipos no nominados",
       "visits": "Visitas",
-      "awards": "Nominaciones"
+      "awards": "Nominaciones",
+      "scripts": "Scripts"
     }
   },
   "home": {
@@ -89,6 +91,9 @@
     "title": "Agregar foto",
     "description": "Adjunte una imagen para el equipo seleccionado.",
     "submit": "Enviar",
+    "currentPhoto": "Foto actual",
+    "newPreview": "Nueva foto — aún no guardada",
+    "noPhoto": "Sin foto aún",
     "fields": {
       "selectTeam": "Seleccionar equipo",
       "attachImage": "Adjuntar imagen"
@@ -131,6 +136,7 @@
       "justification": "Justificación",
       "optionalImage": "Subir imagen (opcional)"
     },
+    "submitting": "Enviando nominación…",
     "errors": {
       "fillAllFields": "Por favor, complete todos los campos antes de enviar."
     }
@@ -139,13 +145,16 @@
     "tabs": {
       "initialization": "Inicialización",
       "judges": "Jueces",
-      "pairs": "Parejas"
+      "pairs": "Parejas",
+      "day2": "Día 2"
     },
     "pairs": {
       "newPair": "Nueva pareja",
       "distribute": "Distribuir equipos",
       "clearTeams": "Limpiar equipos",
       "availableJudges": "Jueces disponibles",
+      "availableTeams": "Equipos disponibles",
+      "teamsWithout": "sin asignación",
       "allAssigned": "todos asignados",
       "noPairs": "Crea una pareja para comenzar a distribuir equipos.",
       "pair": "Pareja",
@@ -155,7 +164,19 @@
       "addTeam": "Agregar equipo",
       "noJudgesAvailable": "No hay jueces disponibles",
       "noTeamsYet": "Ningún equipo asignado aún",
-      "sum": "Suma de números de equipo"
+      "sum": "Suma de números de equipo",
+      "awardsLabel": "Premios evaluados",
+      "roleTooltip": "Haga clic para cambiar el rol del Día 2"
+    },
+    "day2": {
+      "noPairs": "Define el tipo (MCI o TA) de las parejas en la pestaña Parejas para usar la matriz del Día 2.",
+      "machineAwards": "Premios de Máquina",
+      "teamAwards": "Premios de Equipo",
+      "award": "Premio",
+      "group": "Grupo",
+      "noJudges": "Sin jueces",
+      "awardsCount": "premios",
+      "teamsTooltip": "Equipos únicos nominados (afecta el horario)"
     },
     "fields": {
       "eventCode": "Código del evento",
@@ -165,6 +186,10 @@
     "submit": {
       "initializeEvent": "Inicializar evento",
       "addJudges": "Agregar jueces"
+    },
+    "judges": {
+      "conflicts": "Conflictos de interés",
+      "noConflicts": "Sin conflictos declarados"
     },
     "messages": {
       "noJudgesRegistered": "No hay jueces registrados"
@@ -183,10 +208,76 @@
       "removeConsideration": "Retirar de consideración",
       "giveAward": "Premiar",
       "removeAward": "Retirar premio",
-      "delete": "Eliminar"
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "editTitle": "Editar Nominación",
+      "save": "Guardar",
+      "cancel": "Cancelar"
     },
     "special": {
       "inspireAward": "Inspire Award"
+    },
+    "infoDialog": {
+      "keyCriteria": "Criterios clave",
+      "source": "FIRST Award Workbook · Rev. Oct 2025",
+      "close": "Cerrar"
+    },
+    "admin": {
+      "visibilityOn": "Nominaciones visibles",
+      "visibilityOff": "Nominaciones ocultas",
+      "conflictsOn": "Conflictos: ACTIVO",
+      "conflictsOff": "Conflictos: INACTIVO"
+    }
+  },
+  "day2Briefing": {
+    "title": "Briefing Día 2",
+    "reload": "Actualizar",
+    "downloadPdf": "Descargar PDF",
+    "notConfigured": "Configure las parejas (tipos MCI/TA), los roles de los jueces (A/B/C/D) y la matriz del Día 2 en el Panel antes de usar esta pantalla.",
+    "group": "Grupo",
+    "machineAwards": "Premios de Máquina",
+    "teamAwards": "Premios de Equipo",
+    "judges": "Jueces",
+    "noJudgesAssigned": "Ningún juez con rol asignado a este grupo",
+    "awardsTooltip": "Premios en este grupo",
+    "teamsTooltip": "Equipos únicos a visitar (solo nominados)",
+    "noNominations": "Sin nominaciones por ahora",
+    "noAwardsAssigned": "Aún no hay premios asignados a este grupo",
+    "awards": "premios",
+    "teams": "equipos"
+  },
+  "scripts": {
+    "title": "Scripts de Ceremonia",
+    "description": "Scripts para la ceremonia de premiación — escriba, revise y copie los textos finales.",
+    "noWinners": "Aún no hay ganadores definitivos. Un premio debe tener exactamente un equipo nominado para aparecer aquí.",
+    "winnersCount": "ganadores",
+    "pendingCount": "pendientes",
+    "acceptedCount": "aceptados",
+    "writeScript": "Escribir Script",
+    "submit": "Enviar",
+    "edit": "Editar",
+    "cancel": "Cancelar",
+    "copy": "Copiar Script",
+    "copied": "¡Copiado!",
+    "accept": "Aceptar",
+    "sendBack": "Devolver",
+    "by": "por",
+    "placeholder": "Escriba aquí el script de la ceremonia para este premio…",
+    "status": {
+      "pending": "Pendiente de revisión",
+      "accepted": "Aceptado",
+      "rejected": "Devuelto para revisión"
+    },
+    "impact": {
+      "name": "Impact Award",
+      "badge": "IMPACT",
+      "notAnnounced": "Ganador aún no anunciado.",
+      "declareHint": "Ingrese el equipo ganador para que el premio sea visible a todos los jueces.",
+      "selectTeam": "Seleccionar equipo ganador",
+      "scriptOptional": "Script (opcional — los jueces pueden enviarlo después)",
+      "declareWinner": "Declarar Ganador",
+      "confirmWinner": "Confirmar",
+      "noScriptYet": "Ganador declarado — a la espera del script."
     }
   },
   "api": {

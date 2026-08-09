@@ -1,6 +1,7 @@
-import { ref, watch } from "vue";
+import { ref, watch, onScopeDispose } from "vue";
 import { useApi } from "@/composables/useApi";
 import { useEventStore } from "@/stores/eventStore";
+import { useSocket } from "@/composables/useSocket";
 
 /**
  * Fetches and groups awards for the selected event.
@@ -77,6 +78,11 @@ export function useAwards() {
     },
     { immediate: true }
   );
+
+  // Real-time: reload whenever another user changes nominations
+  const socket = useSocket();
+  socket.on("awards:changed", loadAwards);
+  onScopeDispose(() => socket.off("awards:changed", loadAwards));
 
   return { groupedAwards, loading, error, refresh: loadAwards };
 }
