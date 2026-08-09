@@ -1,3 +1,6 @@
+# DB documentation (local only — schema snapshots, not for version control)
+db/
+
 # Logs
 logs
 *.log

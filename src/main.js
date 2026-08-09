@@ -18,28 +18,32 @@ import '@mdi/font/css/materialdesignicons.css'
 import VueTheMask from "vue-the-mask"
 import "./plugins/validation"
 
+// ---------- i18n ----------
+import { i18n } from "./i18n"
+
 // ---------- Auth0 ----------
 import { createAuth0 } from '@auth0/auth0-vue'
 
 // ---------- Vue Router ----------
 import { createRouter, createWebHistory } from 'vue-router'
 
-// ---------- Componentes ----------
+// ---------- Components ----------
 import Awards from './components/Awards.vue'
 import AddTeam from './components/AddTeam.vue'
 import NominateTeam from './components/NominateTeam.vue'
 import ListTeams from './components/ListTeams.vue'
 import Home from './components/Home.vue'
-import Callback from './components/CallBack.vue'
 import AddUser from './components/AddUser.vue'
 import Login from './components/Login.vue'
 import BulkAddTeam from './components/BulkAddTeam.vue'
 import NonNominated from './components/NonNominated.vue'
 import Visits from './components/Visits.vue'
 import AddPicture from './components/AddPicture.vue'
-import Dashboard from './components/Dashboard.vue';
+import Dashboard     from './components/Dashboard.vue'
+import Day2Briefing  from './components/Day2Briefing.vue'
+import Scripts       from './components/Scripts.vue'
 
-// ---------- Instâncias ----------
+// ---------- Vuetify instance ----------
 const vuetify = createVuetify({
   components,
   directives,
@@ -50,23 +54,23 @@ const vuetify = createVuetify({
   },
 })
 
-// ✅ Rotas
+// ---------- Routes ----------
 const routes = [
-  { path: '/login', name: 'Login', component: Login },
-  { path: '/home', name: 'Home', component: Home },
-  { path: '/visits', name: 'Visits', component: Visits },
-  { path: '/non-nominated', name: 'NonNominated', component: NonNominated },
-  { path: '/addTeams', name: 'AddTeams', component: BulkAddTeam },
-  { path: '/awards', name: 'Awards', component: Awards },
-  { path: '/addTeam', name: 'AddTeam', component: AddTeam },
-  { path: '/nominateteam', name: 'NominateTeam', component: NominateTeam },
-  { path: '/listTeams', name: 'ListTeams', component: ListTeams },
-  { path: '/adicionar-foto', name: 'AddPhoto', component: AddPicture },
-  { path: '/callback', name: 'Callback', component: Callback },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/adduser', name: 'AddUser', component: AddUser },
-  { path: '/:pathMatch(.*)*', redirect: '/listTeams' }, // rota padrão
-  
+  { path: '/login',         name: 'Login',        component: Login },
+  { path: '/home',          name: 'Home',          component: Home },
+  { path: '/visits',        name: 'Visits',        component: Visits },
+  { path: '/non-nominated', name: 'NonNominated',  component: NonNominated },
+  { path: '/addTeams',      name: 'AddTeams',      component: BulkAddTeam },
+  { path: '/awards',        name: 'Awards',        component: Awards },
+  { path: '/addTeam',       name: 'AddTeam',       component: AddTeam },
+  { path: '/nominateteam',  name: 'NominateTeam',  component: NominateTeam },
+  { path: '/listTeams',     name: 'ListTeams',     component: ListTeams },
+  { path: '/adicionar-foto',name: 'AddPhoto',      component: AddPicture },
+  { path: '/dashboard',     name: 'Dashboard',     component: Dashboard },
+  { path: '/day2',          name: 'Day2Briefing',  component: Day2Briefing },
+  { path: '/scripts',       name: 'Scripts',       component: Scripts },
+  { path: '/adduser',       name: 'AddUser',       component: AddUser },
+  { path: '/:pathMatch(.*)*', redirect: '/listTeams' },
 ]
 
 const router = createRouter({
@@ -74,29 +78,28 @@ const router = createRouter({
   routes,
 })
 
-// ✅ Pinia
+// ---------- Pinia ----------
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
-// ✅ App
+// ---------- App ----------
 const app = createApp(App)
 app.use(vuetify)
 app.use(VueTheMask)
 app.use(router)
 app.use(pinia)
+app.use(i18n)
 
-// ✅ Auth0
-const auth0 = createAuth0({
-  domain:  process.env.VUE_APP_OAUTH_DOMAIN,
+// ---------- Auth0 ----------
+app.use(createAuth0({
+  domain:    process.env.VUE_APP_OAUTH_DOMAIN,
   clientId:  process.env.VUE_APP_OAUTH_CLIENT_ID,
   authorizationParams: {
     redirect_uri: window.location.origin,
   },
-})
+}))
 
-app.use(auth0)
-
-// ✅ Middleware de autenticação
+// ---------- Auth guard ----------
 router.beforeEach(async (to, from, next) => {
   const auth = app.config.globalProperties.$auth0
   const requiresAuth = !['Login', 'AddUser'].includes(to.name)
@@ -110,5 +113,5 @@ router.beforeEach(async (to, from, next) => {
   else next()
 })
 
-// ✅ Monta o app
+// ---------- Mount ----------
 router.isReady().then(() => app.mount('#app'))

@@ -2,22 +2,21 @@
   <v-form ref="form">
     <v-container fluid>
       <CardTitlePage
-        titulo="Adicionar Foto"
+        :titulo="$t('addPicture.title')"
         icon="mdi-camera"
-        body="Anexe uma imagem para o time selecionado."
-        class="card-title"
+        :body="$t('addPicture.description')"
       />
 
-      <Loader :overlay="loader" />
+      <Loader :overlay="loading" />
 
       <v-row>
         <v-col cols="12" md="6">
           <v-combobox
             v-model="team"
-            :items="times"
+            :items="teams"
             item-title="text"
             item-value="value"
-            label="Selecione o time"
+            :label="$t('addPicture.fields.selectTeam')"
             density="comfortable"
             outlined
           />
@@ -25,117 +24,179 @@
 
         <v-col cols="12" md="6">
           <v-file-input
-            @change="onFileChange"
+            v-model="myFileObject"
             prepend-icon="mdi-image-plus"
-            accept="image/*"
-            label="Anexar imagem"
+            accept="image/jpeg, image/png"
+            :label="$t('addPicture.fields.attachImage')"
             density="comfortable"
             outlined
           />
         </v-col>
       </v-row>
 
-      <v-row justify="center" class="mt-4">
+      <!-- ── Photo preview ──────────────────────────────────────────────────── -->
+      <v-row v-if="team" justify="center" class="mt-2 mb-2">
+        <v-col cols="12" sm="8" md="5" class="d-flex flex-column align-center">
+          <v-card variant="outlined" rounded="lg" width="100%" class="photo-card">
+            <v-img
+              :src="displayImage || standardImg"
+              height="240"
+              cover
+            >
+              <template #placeholder>
+                <div class="d-flex align-center justify-center h-100">
+                  <v-progress-circular indeterminate color="grey-lighten-2" />
+                </div>
+              </template>
+
+              <!-- "preview" badge when a new file is staged -->
+              <div v-if="previewUrl" class="preview-badge">
+                <v-icon icon="mdi-image-edit-outline" size="13" class="mr-1" />
+                {{ $t('addPicture.newPreview') }}
+              </div>
+            </v-img>
+          </v-card>
+
+          <span class="text-caption text-medium-emphasis mt-2">
+            <template v-if="previewUrl">
+              {{ $t('addPicture.newPreview') }}
+            </template>
+            <template v-else-if="displayImage">
+              {{ $t('addPicture.currentPhoto') }}
+            </template>
+            <template v-else>
+              <v-icon icon="mdi-image-off-outline" size="13" class="mr-1 text-disabled" />
+              {{ $t('addPicture.noPhoto') }}
+            </template>
+          </span>
+        </v-col>
+      </v-row>
+
+      <v-row justify="center" class="mt-3">
         <v-btn
           @click="addPhoto"
-          color="#1E5AA8"
+          color="#007FBC"
           variant="outlined"
           elevation="4"
-          :disabled="!invalid"
+          :disabled="!canSubmit"
+          :loading="uploading"
         >
-          Enviar
+          {{ $t('addPicture.submit') }}
         </v-btn>
       </v-row>
     </v-container>
   </v-form>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onUnmounted } from "vue";
+import { useApi } from "@/composables/useApi";
+import { useTeams } from "@/composables/useTeams";
+import { useEventStore } from "@/stores/eventStore";
 import CardTitlePage from "./CardTitlePage.vue";
 import Loader from "./Loader.vue";
-import axios from "axios";
+import standardImg from "@/assets/fotos_times/standard.webp";
 
-export default {
-  components: { CardTitlePage, Loader },
+const { apiRequest } = useApi();
+const eventStore = useEventStore();
+const form = ref(null);
 
-  data() {
-    return {
-      times: [],
-      loader: false,
-      team: null,
-      myFileObject: null,
-      serverDomain: process.env.VUE_APP_SERVER_DOMAIN,
-    };
-  },
+// useTeams already sends the eventCode header and reacts to event changes
+const { teams: rawTeams, loading, refresh: refreshTeams } = useTeams();
 
-  computed: {
-    invalid() {
-      return this.team && this.myFileObject;
-    },
-  },
+const teams = computed(() =>
+  rawTeams.value.map((t) => ({
+    text: `${t.value} - ${t.text}`,
+    value: t.value,
+  }))
+);
 
-  methods: {
-    onFileChange(e) {
-      this.myFileObject = e;
-    },
+const team       = ref(null);
+const myFileObject = ref(null);
+const uploading  = ref(false);
+const previewUrl = ref(null);
 
-    async addPhoto() {
-      if (!this.team || !this.myFileObject) return;
+// Look up the full team record (including imageLink) from rawTeams
+const selectedTeamData = computed(() => {
+  const teamValue = team.value?.value ?? team.value;
+  if (!teamValue) return null;
+  return rawTeams.value.find((t) => t.value === teamValue) ?? null;
+});
 
-      this.loader = true;
-      try {
-        const formData = new FormData();
-        formData.append("file", this.myFileObject);
-        formData.append(
-          "bodyReq",
-          JSON.stringify({ value: this.team.value })
-        );
+// Image to display: file preview takes priority over the stored S3 photo
+const displayImage = computed(() =>
+  previewUrl.value || selectedTeamData.value?.imageLink || null
+);
 
-        await axios.post(`${this.serverDomain}/teams/picture`, formData);
+// Generate / revoke object URL whenever the file selection changes
+watch(myFileObject, (newFile) => {
+  if (previewUrl.value) {
+    URL.revokeObjectURL(previewUrl.value);
+    previewUrl.value = null;
+  }
+  if (newFile instanceof File) {
+    previewUrl.value = URL.createObjectURL(newFile);
+  }
+});
 
-        this.$refs.form.reset();
-        this.team = null;
-        this.myFileObject = null;
+// Clean up the object URL when the component is destroyed
+onUnmounted(() => {
+  if (previewUrl.value) URL.revokeObjectURL(previewUrl.value);
+});
 
-        this.$emit("notify", { type: "success", message: "Imagem enviada com sucesso!" });
-      } catch (error) {
-        console.error(error);
-        this.$emit("notify", { type: "error", message: "Erro ao enviar imagem." });
-      } finally {
-        this.loader = false;
-      }
-    },
-  },
+const canSubmit = computed(() => team.value && myFileObject.value);
 
-  created() {
-    this.loader = true;
-    fetch(`${this.serverDomain}/teams`, { credentials: "include" })
-      .then((res) => res.json())
-      .then((json) => {
-        this.times = json.map((t) => ({
-          text: `${t.value} - ${t.text}`,
-          value: t.value,
-        }));
-      })
-      .finally(() => (this.loader = false));
-  },
+const addPhoto = async () => {
+  if (!canSubmit.value) return;
+
+  uploading.value = true;
+  try {
+    const formData = new FormData();
+    formData.append("file", myFileObject.value);
+    formData.append("bodyReq", JSON.stringify({ value: team.value.value ?? team.value }));
+
+    await apiRequest("teams/picture", {
+      method: "POST",
+      headers: { eventCode: eventStore.selectedEvent.value },
+      body: formData,
+    });
+
+    // Refresh teams so the new presigned URL is available immediately
+    await refreshTeams();
+
+    form.value?.reset();
+    team.value      = null;
+    myFileObject.value = null;
+  } finally {
+    uploading.value = false;
+  }
 };
 </script>
 
 <style scoped>
-.card-title {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+.photo-card {
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.preview-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(4px);
 }
 
 .v-btn {
   font-family: "Roboto", sans-serif;
   text-transform: none;
   font-weight: 500;
-}
-
-.v-combobox,
-.v-file-input {
-  font-family: "Roboto", sans-serif;
 }
 </style>

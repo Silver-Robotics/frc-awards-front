@@ -10,7 +10,7 @@
 
     <v-btn
       class="add-button"
-      color="#1E5AA8"
+      color="#007FBC"
       variant="outlined"
       elevation="3"
       @click="checkEventState"
@@ -37,12 +37,12 @@
   font-weight: 500;
   font-size: 1.1rem;
   transition: all 0.25s ease;
-  border-color: #1e5aa8;
-  color: #1e5aa8;
+  border-color: #007FBC;
+  color: #007FBC;
 }
 
 .add-button:hover {
-  background-color: #1e5aa8;
+  background-color: #007FBC;
   color: white;
   transform: scale(1.03);
 }

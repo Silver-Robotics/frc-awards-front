@@ -1,0 +1,289 @@
+{
+  "common": {
+    "name": "Nome",
+    "state": "Estado",
+    "school": "Escola",
+    "teamNumber": "#Time",
+    "add": "Adicionar",
+    "send": "Enviar",
+    "delete": "Deletar",
+    "error": "Erro",
+    "success": "Sucesso"
+  },
+  "app": {
+    "selectEvent": "Selecione o evento",
+    "logout": "Logout",
+    "copyright": "© 2026 - Silver Tech",
+    "menu": {
+      "login": "Login",
+      "dashboard": "Dashboard",
+      "addPhoto": "Adicionar Foto",
+      "listTeams": "Lista de Times",
+      "nominateTeam": "Indicar Times",
+      "day2": "Dia 2 — Briefing",
+      "nonNominated": "Times não indicados",
+      "visits": "Visitas",
+      "awards": "Indicações",
+      "scripts": "Scripts"
+    }
+  },
+  "home": {
+    "section": "Home",
+    "title": "Bem-vindo!",
+    "subtitle": "Software de deliberação para torneios de FRC e FTC"
+  },
+  "login": {
+    "title": "Login",
+    "userName": "Nome do Usuário",
+    "password": "Senha",
+    "submit": "Login",
+    "errors": {
+      "userNameRequired": "Nome do Usuário não pode ser vazio",
+      "passwordRequired": "Senha não pode ser vazia",
+      "loginFailed": "Erro ao logar"
+    }
+  },
+  "addUser": {
+    "title": "Adicionar Usuário",
+    "description": "Adicionar um usuário ao sistema.",
+    "submit": "Adicionar",
+    "fields": {
+      "fullName": "Nome completo",
+      "userName": "Nome do Usuário",
+      "password": "Senha",
+      "repeatPassword": "Repita a senha",
+      "selectPermission": "Selecione a permissão"
+    },
+    "permissions": {
+      "admin": "Administrador",
+      "roomJudge": "Juiz de Sala"
+    },
+    "errors": {
+      "fullNameRequired": "Nome completo é obrigatório",
+      "userNameRequired": "Nome de usuário é obrigatório",
+      "passwordRequired": "Senha é obrigatória",
+      "repeatPasswordRequired": "Confirmação é obrigatória",
+      "permissionRequired": "Permissão é obrigatória",
+      "passwordMismatch": "Senhas não conferem!",
+      "userAlreadyExists": "Usuário já existe!"
+    },
+    "dialog": {
+      "successTitle": "Sucesso",
+      "successMessage": "Usuário adicionado!",
+      "errorTitle": "Erro"
+    }
+  },
+  "addTeam": {
+    "title": "Adicionar Time",
+    "description": "Adicione um time ao sistema, não se esqueça de confirmar os dados antes de enviar. Esta ação deve ser realizada apenas pela equipe de organização do evento.",
+    "submit": "Adicionar",
+    "fields": {
+      "teamName": "Nome da Equipe",
+      "teamNumber": "Número da Equipe",
+      "school": "Escola",
+      "selectState": "Selecione o estado"
+    },
+    "errors": {
+      "invalidNumber": "Número não válido."
+    }
+  },
+  "addPicture": {
+    "title": "Adicionar Foto",
+    "description": "Anexe uma imagem para o time selecionado.",
+    "submit": "Enviar",
+    "currentPhoto": "Foto atual",
+    "newPreview": "Nova foto — ainda não salva",
+    "noPhoto": "Sem foto ainda",
+    "fields": {
+      "selectTeam": "Selecione o time",
+      "attachImage": "Anexar imagem"
+    }
+  },
+  "visits": {
+    "title": "Controle de visitas",
+    "headers": {
+      "name": "Nome",
+      "number": "Número",
+      "visitAE": "Visita AE",
+      "visitMCI": "Visita MCI",
+      "visitExtra": "Visita Extra"
+    }
+  },
+  "listTeams": {
+    "headers": {
+      "state": "Estado",
+      "name": "Nome",
+      "teamNumber": "#Time",
+      "school": "Escola"
+    }
+  },
+  "nonNominated": {
+    "title": "Times não indicados",
+    "headers": {
+      "state": "Estado",
+      "name": "Nome",
+      "teamNumber": "#Time",
+      "school": "Escola"
+    }
+  },
+  "nominateTeam": {
+    "title": "Indicar Time",
+    "submit": "Enviar",
+    "fields": {
+      "selectAward": "Selecione o prêmio",
+      "selectTeam": "Selecione o time",
+      "selectRoom": "Selecione a Dupla",
+      "justification": "Justificativa",
+      "optionalImage": "Enviar imagem (opcional)"
+    },
+    "submitting": "Enviando indicação…",
+    "errors": {
+      "fillAllFields": "Preencha todos os campos antes de enviar."
+    }
+  },
+  "dashboard": {
+    "tabs": {
+      "initialization": "Inicialização",
+      "judges": "Juízes",
+      "pairs": "Duplas",
+      "day2": "Dia 2"
+    },
+    "pairs": {
+      "newPair": "Nova Dupla",
+      "distribute": "Distribuir Times",
+      "clearTeams": "Limpar Times",
+      "availableJudges": "Juízes disponíveis",
+      "availableTeams": "Times disponíveis",
+      "teamsWithout": "sem alocação",
+      "allAssigned": "todos alocados",
+      "noPairs": "Crie uma dupla para começar a distribuição.",
+      "pair": "Dupla",
+      "judges": "Juízes",
+      "teamsLabel": "Times",
+      "addJudge": "Adicionar juiz",
+      "addTeam": "Adicionar time",
+      "noJudgesAvailable": "Nenhum juiz disponível",
+      "noTeamsYet": "Nenhum time alocado ainda",
+      "sum": "Soma dos números",
+      "awardsLabel": "Prêmios avaliados",
+      "roleTooltip": "Clique para alterar o papel no Dia 2"
+    },
+    "day2": {
+      "noPairs": "Defina o tipo (MCI ou TA) das duplas na aba Duplas para usar a matriz do Dia 2.",
+      "machineAwards": "Prêmios de Máquina",
+      "teamAwards": "Prêmios de Time",
+      "award": "Prêmio",
+      "group": "Grupo",
+      "noJudges": "Sem juízes",
+      "awardsCount": "prêmios",
+      "teamsTooltip": "Times únicos indicados (afeta horário)"
+    },
+    "fields": {
+      "eventCode": "Código do Evento",
+      "selectProgram": "Selecione o programa",
+      "judgeName": "Nome dos Juízes"
+    },
+    "submit": {
+      "initializeEvent": "Inicializar evento",
+      "addJudges": "Adicionar Juízes"
+    },
+    "judges": {
+      "conflicts": "Conflitos de interesse",
+      "noConflicts": "Sem conflitos declarados"
+    },
+    "messages": {
+      "noJudgesRegistered": "Não há juízes cadastrados"
+    }
+  },
+  "awards": {
+    "headers": {
+      "award": "Prêmio",
+      "team": "Time",
+      "room": "Sala"
+    },
+    "dialog": {
+      "nominatedBy": "Indicado por:",
+      "description": "Descrição:",
+      "consider": "Considerar",
+      "removeConsideration": "Retirar de consideração",
+      "giveAward": "Premiar",
+      "removeAward": "Tirar premiação",
+      "delete": "Deletar",
+      "edit": "Editar",
+      "editTitle": "Editar Indicação",
+      "save": "Salvar",
+      "cancel": "Cancelar"
+    },
+    "special": {
+      "inspireAward": "Inspire Award"
+    },
+    "infoDialog": {
+      "keyCriteria": "Critérios",
+      "source": "FIRST Award Workbook · Rev. Out 2025",
+      "close": "Fechar"
+    },
+    "admin": {
+      "visibilityOn": "Indicações visíveis",
+      "visibilityOff": "Indicações ocultas",
+      "conflictsOn": "Conflitos: ATIVO",
+      "conflictsOff": "Conflitos: INATIVO"
+    }
+  },
+  "day2Briefing": {
+    "title": "Briefing Dia 2",
+    "reload": "Atualizar",
+    "downloadPdf": "Baixar PDF",
+    "notConfigured": "Configure as duplas (tipo MCI/TA), os papéis dos juízes (A/B/C/D) e a matriz do Dia 2 no Dashboard antes de usar esta tela.",
+    "group": "Grupo",
+    "machineAwards": "Prêmios de Máquina",
+    "teamAwards": "Prêmios de Time",
+    "judges": "Juízes",
+    "noJudgesAssigned": "Nenhum juiz com papel atribuído a este grupo",
+    "awardsTooltip": "Prêmios neste grupo",
+    "teamsTooltip": "Times únicos a visitar (apenas indicados)",
+    "noNominations": "Sem indicações por enquanto",
+    "noAwardsAssigned": "Nenhum prêmio atribuído a este grupo ainda",
+    "awards": "prêmios",
+    "teams": "times"
+  },
+  "scripts": {
+    "title": "Scripts de Cerimônia",
+    "description": "Scripts para a cerimônia de premiação — escreva, revise e copie os textos finais.",
+    "noWinners": "Ainda não há vencedores definitivos. Um prêmio precisa ter exatamente um time indicado para aparecer aqui.",
+    "winnersCount": "vencedores",
+    "pendingCount": "pendentes",
+    "acceptedCount": "aceitos",
+    "writeScript": "Escrever Script",
+    "submit": "Enviar",
+    "edit": "Editar",
+    "cancel": "Cancelar",
+    "copy": "Copiar Script",
+    "copied": "Copiado!",
+    "accept": "Aceitar",
+    "sendBack": "Devolver",
+    "by": "por",
+    "placeholder": "Escreva aqui o script da cerimônia para este prêmio…",
+    "status": {
+      "pending": "Aguardando revisão",
+      "accepted": "Aceito",
+      "rejected": "Devolvido para revisão"
+    },
+    "impact": {
+      "name": "Impact Award",
+      "badge": "IMPACT",
+      "notAnnounced": "Vencedor ainda não anunciado.",
+      "declareHint": "Informe o time vencedor para tornar o prêmio visível a todos os juízes.",
+      "selectTeam": "Selecionar time vencedor",
+      "scriptOptional": "Script (opcional — juízes podem enviar depois)",
+      "declareWinner": "Declarar Vencedor",
+      "confirmWinner": "Confirmar",
+      "noScriptYet": "Vencedor declarado — aguardando envio do script."
+    }
+  },
+  "api": {
+    "sessionExpired": "Sessão expirada. Você será desconectado.",
+    "httpError": "Erro {status}: {statusText}",
+    "communicationFailed": "Falha na comunicação: {message}",
+    "unauthorized": "Usuário não autorizado (401)"
+  }
+}
