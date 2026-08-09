@@ -145,17 +145,17 @@ const menuItems = computed(() => [
   { key: "scripts",     name: t("app.menu.scripts"),     icon: "mdi-script-text-outline",  route: "/scripts" },
 ]);
 
+const adminOnlyKeys = new Set(["dashboard"]);
+
 const allowedMenuItems = computed(() => {
   if (!isAuthenticated.value || !user.value) {
     return menuItems.value.filter((item) => item.key === "login");
   }
-  if (isAdmin) {
-    return menuItems.value.filter((item) => item.key !== "login");
-  }
-  if (isJudge) {
-    return menuItems.value.filter((item) => item.key !== "login");
-  }
-  return menuItems.value.filter((item) => item.key !== "login");
+  return menuItems.value.filter((item) => {
+    if (item.key === "login") return false;
+    if (adminOnlyKeys.has(item.key)) return isAdmin;
+    return true;
+  });
 });
 
 // ── Logout ───────────────────────────────────────────────────────────────────
